@@ -1,3 +1,5 @@
+import sass from 'sass'
+
 export default {
   server: {
     port: 8080, // デフォルト: 3000,
@@ -44,6 +46,11 @@ export default {
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    loaders: {
+      scss: {
+        implementation: sass,
+      },
+    },
     extend(config) {
       config.module.rules.push({
         test: /\.(glsl|fs|vs)$/,

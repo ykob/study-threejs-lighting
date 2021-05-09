@@ -28,7 +28,11 @@
     "glslify-import-loader": "^0.1.2",
     "glslify-loader": "^2.0.0",
     "prettier": "^2.2.1",
+    "pug": "^3.0.2",
+    "pug-plain-loader": "^1.1.0",
     "raw-loader": "^4.0.2",
+    "sass": "^1.32.12",
+    "sass-loader": "10.1.1",
     "webpack-glsl-loader": "^1.0.1"
   }
 }

@@ -1,5 +1,6 @@
-<template>
-  <nuxt></nuxt>
+<template lang="pug">
+.page
+  nuxt
 </template>
 
 <script>
@@ -14,4 +15,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.page {
+  position: relative;
+}
+</style>
