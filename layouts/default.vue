@@ -11,6 +11,8 @@ const webgl = new WebGLContent()
 
 export default {
   mounted() {
+    window.addEventListener('resize', this.resize)
+
     webgl.start()
     this.resize()
     this.update()
