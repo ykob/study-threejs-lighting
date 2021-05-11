@@ -1,9 +1,9 @@
 import * as THREE from 'three'
 
-import vs from './glsl/Mesh.vs'
+import vs from './glsl/TorusKnot.vs'
 import fs from './glsl/Mesh.fs'
 
-export default class Mesh extends THREE.Mesh {
+export default class TorusKnot extends THREE.Mesh {
   constructor() {
     // Define Geometry
     const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16)
@@ -21,6 +21,6 @@ export default class Mesh extends THREE.Mesh {
 
     // Create Object3D
     super(geometry, material)
-    this.name = 'Mesh'
+    this.name = 'TorusKnot'
   }
 }

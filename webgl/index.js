@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 import Camera from './Camera'
-import Mesh from './Mesh'
+import TorusKnot from './TorusKnot'
 
 export default class WebGLContent {
   constructor() {
@@ -12,7 +12,7 @@ export default class WebGLContent {
     })
     this.scene = new THREE.Scene()
     this.camera = new Camera()
-    this.mesh = new Mesh()
+    this.torusKnot = new TorusKnot()
   }
 
   start() {
@@ -27,7 +27,7 @@ export default class WebGLContent {
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
-    this.scene.add(this.mesh)
+    this.scene.add(this.torusKnot)
 
     this.resize()
     this.clock.start()
