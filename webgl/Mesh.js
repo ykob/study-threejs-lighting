@@ -6,7 +6,7 @@ import fs from './glsl/Mesh.fs'
 export default class Mesh extends THREE.Mesh {
   constructor() {
     // Define Geometry
-    const geometry = new THREE.BoxGeometry(10, 10, 10)
+    const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16)
 
     // Define Material
     const material = new THREE.RawShaderMaterial({
@@ -22,12 +22,5 @@ export default class Mesh extends THREE.Mesh {
     // Create Object3D
     super(geometry, material)
     this.name = 'Mesh'
-  }
-
-  start() {}
-
-  update(time) {
-    if (this.isActive === false) return
-    this.material.uniforms.time.value += time
   }
 }

@@ -1,6 +1,7 @@
 <template lang="pug">
 .page
   nuxt
+  canvas#canvas-webgl
 </template>
 
 <script>
@@ -9,8 +10,19 @@ import WebGLContent from '@/webgl'
 const webgl = new WebGLContent()
 
 export default {
-  mouted() {
+  mounted() {
     webgl.start()
+    this.resize()
+    this.update()
+  },
+  methods: {
+    update() {
+      webgl.update()
+      requestAnimationFrame(this.update)
+    },
+    resize() {
+      webgl.resize()
+    },
   },
 }
 </script>
@@ -18,5 +30,10 @@ export default {
 <style lang="scss" scoped>
 .page {
   position: relative;
+}
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 </style>
