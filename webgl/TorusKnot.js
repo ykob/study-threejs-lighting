@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
-import vs from './glsl/MeshBasic.vs'
-import fs from './glsl/MeshBasic.fs'
+import vs from './glsl/MeshLambert.vs'
+import fs from './glsl/MeshLambert.fs'
 
 export default class TorusKnot extends THREE.Mesh {
   constructor() {
@@ -22,6 +22,7 @@ export default class TorusKnot extends THREE.Mesh {
       fragmentShader: fs,
       lights: true,
     })
+    // const material = new THREE.MeshLambertMaterial()
 
     // Create Object3D
     super(geometry, material)
