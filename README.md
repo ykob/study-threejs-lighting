@@ -17,3 +17,10 @@ $ yarn start
 # generate static project
 $ yarn generate
 ```
+
+## Links 
+
+- [THREE.AmbientLight](https://threejs.org/docs/?q=Light#api/en/lights/AmbientLight)
+- [THREE.DirectionalLight](https://threejs.org/docs/?q=Light#api/en/lights/DirectionalLight)
+- [THREE.HemisphereLight](https://threejs.org/docs/?q=Light#api/en/lights/HemisphereLight)
+- [THREE.PointLight](https://threejs.org/docs/?q=Light#api/en/lights/PointLight)
