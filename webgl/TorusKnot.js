@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
-import vs from './glsl/TorusKnot.vs'
-import fs from './glsl/Mesh.fs'
+import vs from './glsl/MeshBasic.vs'
+import fs from './glsl/MeshBasic.fs'
 
 export default class TorusKnot extends THREE.Mesh {
   constructor() {
@@ -10,13 +10,17 @@ export default class TorusKnot extends THREE.Mesh {
 
     // Define Material
     const material = new THREE.RawShaderMaterial({
-      uniforms: {
-        time: {
-          value: 0,
+      uniforms: THREE.UniformsUtils.merge([
+        THREE.UniformsLib.lights,
+        {
+          time: {
+            value: 0,
+          },
         },
-      },
+      ]),
       vertexShader: vs,
       fragmentShader: fs,
+      lights: true,
     })
 
     // Create Object3D
