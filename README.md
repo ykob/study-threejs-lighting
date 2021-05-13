@@ -24,3 +24,4 @@ $ yarn generate
 - [THREE.DirectionalLight](https://threejs.org/docs/?q=Light#api/en/lights/DirectionalLight)
 - [THREE.HemisphereLight](https://threejs.org/docs/?q=Light#api/en/lights/HemisphereLight)
 - [THREE.PointLight](https://threejs.org/docs/?q=Light#api/en/lights/PointLight)
+- [THREE.SpotLight](https://threejs.org/docs/?q=Light#api/en/lights/SpotLight)
