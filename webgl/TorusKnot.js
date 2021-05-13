@@ -28,4 +28,8 @@ export default class TorusKnot extends THREE.Mesh {
     super(geometry, material)
     this.name = 'TorusKnot'
   }
+
+  update() {
+    this.rotation.y += 0.01
+  }
 }

@@ -73,10 +73,11 @@ vec3 getAmbientLightIrradiance(const in vec3 ambientLightColor) {
 
 void main(void) {
   // #include <beginnormal_vertex>
-  vec3 objectNormal = vec3( normal );
+  vec3 objectNormal = vec3(normal);
 
   // #include <defaultnormal_vertex>
   vec3 transformedNormal = objectNormal;
+  transformedNormal = normalMatrix * transformedNormal;
 
   // #include <begin_vertex>
   vec3 transformed = vec3(position);
