@@ -2,6 +2,7 @@ import * as THREE from 'three'
 
 import Camera from './Camera'
 import MeshLambert from './MeshLambert'
+import MeshPhong from './MeshPhong'
 import AmbientLight from './AmbientLight'
 import DirectionalLight from './DirectionalLight'
 
@@ -15,6 +16,7 @@ export default class WebGLContent {
     this.scene = new THREE.Scene()
     this.camera = new Camera()
     this.meshLambert = new MeshLambert()
+    this.meshPhong = new MeshPhong()
     this.ambLight = new AmbientLight()
     this.dirLight = new DirectionalLight()
     this.dirLightHelper = new THREE.DirectionalLightHelper(this.dirLight, 5)
@@ -33,9 +35,12 @@ export default class WebGLContent {
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
     this.scene.add(this.meshLambert)
+    this.scene.add(this.meshPhong)
     this.scene.add(this.ambLight)
     this.scene.add(this.dirLight)
     this.scene.add(this.dirLightHelper)
+
+    this.meshLambert.visible = false
 
     this.resize()
     this.clock.start()
@@ -43,6 +48,7 @@ export default class WebGLContent {
 
   update() {
     this.meshLambert.update()
+    this.meshPhong.update()
     this.renderer.render(this.scene, this.camera)
   }
 

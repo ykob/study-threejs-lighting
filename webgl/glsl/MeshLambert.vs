@@ -11,7 +11,6 @@ uniform vec3 cameraPosition;
 uniform bool isOrthographic;
 
 // https://github.com/mrdoob/three.js/blob/master/src/renderers/shaders/ShaderLib/meshbasic_vert.glsl.js
-
 #define LAMBERT
 
 varying vec3 vLightFront;
