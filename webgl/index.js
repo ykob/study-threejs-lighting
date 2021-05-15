@@ -1,7 +1,7 @@
 import * as THREE from 'three'
 
 import Camera from './Camera'
-import TorusKnot from './TorusKnot'
+import MeshLambert from './MeshLambert'
 import AmbientLight from './AmbientLight'
 import DirectionalLight from './DirectionalLight'
 
@@ -14,7 +14,7 @@ export default class WebGLContent {
     })
     this.scene = new THREE.Scene()
     this.camera = new Camera()
-    this.torusKnot = new TorusKnot()
+    this.meshLambert = new MeshLambert()
     this.ambLight = new AmbientLight()
     this.dirLight = new DirectionalLight()
     this.dirLightHelper = new THREE.DirectionalLightHelper(this.dirLight, 5)
@@ -32,7 +32,7 @@ export default class WebGLContent {
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
-    this.scene.add(this.torusKnot)
+    this.scene.add(this.meshLambert)
     this.scene.add(this.ambLight)
     this.scene.add(this.dirLight)
     this.scene.add(this.dirLightHelper)
@@ -42,7 +42,7 @@ export default class WebGLContent {
   }
 
   update() {
-    this.torusKnot.update()
+    this.meshLambert.update()
     this.renderer.render(this.scene, this.camera)
   }
 
