@@ -16,20 +16,8 @@ export default class MeshPhong extends THREE.Mesh {
           time: {
             value: 0,
           },
-          diffuse: {
-            value: new THREE.Vector3(1, 1, 1),
-          },
-          emissive: {
-            value: new THREE.Vector3(0, 0, 0),
-          },
-          specular: {
-            value: new THREE.Vector3(1, 1, 1),
-          },
           shininess: {
             value: 30,
-          },
-          opacity: {
-            value: 0,
           },
         },
       ]),

@@ -1,5 +1,5 @@
 import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 
 import Camera from './Camera'
 import MeshLambert from './MeshLambert'
@@ -19,8 +19,12 @@ export default class WebGLContent {
     this.meshLambert = new MeshLambert()
     this.meshPhong = new MeshPhong()
     this.ambLight = new AmbientLight()
-    this.dirLight = new DirectionalLight()
-    this.dirLightHelper = new THREE.DirectionalLightHelper(this.dirLight, 5)
+    this.dirLight1 = new DirectionalLight()
+    this.dirLight1.position.set(-20, 20, 20)
+    this.dirLight2 = new DirectionalLight(0x0000ff)
+    this.dirLight2.position.set(20, 20, 20)
+    this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
+    this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
     this.controls = null
   }
 
@@ -36,17 +40,19 @@ export default class WebGLContent {
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
 
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.dampingFactor = 0.1;
-    this.controls.enableDamping = true;
-    this.controls.enablePan = false;
-    this.controls.enableZoom = false;
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+    this.controls.dampingFactor = 0.1
+    this.controls.enableDamping = true
+    this.controls.enablePan = false
+    this.controls.enableZoom = false
 
     this.scene.add(this.meshLambert)
     this.scene.add(this.meshPhong)
     this.scene.add(this.ambLight)
-    this.scene.add(this.dirLight)
-    this.scene.add(this.dirLightHelper)
+    this.scene.add(this.dirLight1)
+    this.scene.add(this.dirLightHelper1)
+    this.scene.add(this.dirLight2)
+    this.scene.add(this.dirLightHelper2)
 
     this.meshLambert.visible = false
 
