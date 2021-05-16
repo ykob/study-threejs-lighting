@@ -1,4 +1,5 @@
 import * as THREE from 'three'
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 import Camera from './Camera'
 import MeshLambert from './MeshLambert'
@@ -20,6 +21,7 @@ export default class WebGLContent {
     this.ambLight = new AmbientLight()
     this.dirLight = new DirectionalLight()
     this.dirLightHelper = new THREE.DirectionalLightHelper(this.dirLight, 5)
+    this.controls = null
   }
 
   start() {
@@ -33,6 +35,12 @@ export default class WebGLContent {
     this.renderer.setClearColor(0x000000, 1.0)
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    this.controls.dampingFactor = 0.1;
+    this.controls.enableDamping = true;
+    this.controls.enablePan = false;
+    this.controls.enableZoom = false;
 
     this.scene.add(this.meshLambert)
     this.scene.add(this.meshPhong)
@@ -50,6 +58,7 @@ export default class WebGLContent {
     this.meshLambert.update()
     this.meshPhong.update()
     this.renderer.render(this.scene, this.camera)
+    this.controls.update()
   }
 
   resize() {
