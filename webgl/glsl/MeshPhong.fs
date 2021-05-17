@@ -27,7 +27,7 @@ vec3 calcDiffuse(
   const in GeometricContext geometry,
   const in DirectionalLight directLight
 ) {
-  float dotNL = dot(normalize(geometry.normal), normalize(directLight.direction));
+  float dotNL = dot(geometry.normal, directLight.direction);
   return directLight.color * clamp(dotNL, 0.0, 1.0);
 }
 
