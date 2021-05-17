@@ -37,7 +37,7 @@ vec3 calcSpecular(
   const in vec3 viewPosition,
   const in DirectionalLight directLight
 ) {
-  vec3 halfDir = normalize(directLight.direction + viewPosition);
+  vec3 halfDir = normalize(directLight.direction + normalize(viewPosition));
   float dotNH = clamp(dot(normalize(normal), halfDir), 0.0, 1.0);
   float dotLH = clamp(dot(normalize(directLight.direction), halfDir), 0.0, 1.0);
   vec3 F = F_Schlick(vec3(1.0), dotLH);
