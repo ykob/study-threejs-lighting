@@ -15,6 +15,9 @@ struct GeometricContext {
 	vec3 viewDir;
 };
 
+// Ambient Light
+uniform vec3 ambientLightColor;
+
 // Directional Lights
 struct DirectionalLight {
   vec3 direction;
@@ -73,7 +76,7 @@ void main() {
   }
   #pragma unroll_loop_end
 
-  vec3 light = diffuse + specular;
+  vec3 light = diffuse + specular + ambientLightColor;
 
   gl_FragColor = vec4(light, 1.0);
 }
