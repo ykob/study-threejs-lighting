@@ -49,9 +49,7 @@ export default class WebGLContent {
     this.controls.enableZoom = false
 
     await Promise.all([
-      this.texLoader.loadAsync(
-        require('@/assets/img/MetalPlates006_1K_Normal.jpg')
-      ),
+      this.texLoader.loadAsync(require('@/assets/img/normal.jpg')),
     ]).then((response) => {
       normalMap = response[0]
       normalMap.wrapT = normalMap.wrapS = THREE.RepeatWrapping

@@ -84,7 +84,7 @@ vec3 perturb(vec3 map, vec3 N, vec3 V, vec2 texcoord) {
 
 void main() {
   // Normal
-  vec3 MapN = (texture2D(normalMap, vUv).rgb * 2.0 - 1.0);
+  vec3 MapN = texture2D(normalMap, vUv).rgb * 2.0 - 1.0;
   vec3 N = normalize(vNormal);
   vec3 V = normalize(vViewPosition);
 
