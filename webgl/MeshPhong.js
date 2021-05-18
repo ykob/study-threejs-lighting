@@ -6,7 +6,7 @@ import fs from './glsl/MeshPhong.fs'
 export default class MeshPhong extends THREE.Mesh {
   constructor() {
     // Define Geometry
-    const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16)
+    const geometry = new THREE.TorusGeometry(16, 6, 16, 100)
 
     // Define Material
     const material = new THREE.RawShaderMaterial({
@@ -19,6 +19,9 @@ export default class MeshPhong extends THREE.Mesh {
           shininess: {
             value: 30,
           },
+          normalMap: {
+            value: null,
+          },
         },
       ]),
       vertexShader: vs,
@@ -29,6 +32,12 @@ export default class MeshPhong extends THREE.Mesh {
     // Create Object3D
     super(geometry, material)
     this.name = 'MeshPhong'
+  }
+
+  start(normalMap) {
+    const { uniforms } = this.material
+
+    uniforms.normalMap.value = normalMap
   }
 
   update() {

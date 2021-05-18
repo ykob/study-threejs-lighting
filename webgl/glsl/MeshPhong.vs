@@ -8,6 +8,7 @@ uniform mat4 projectionMatrix;
 uniform mat3 normalMatrix;
 
 varying vec3 vViewPosition;
+varying vec2 vUv;
 varying vec3 vNormal;
 
 void main(void) {
@@ -18,6 +19,7 @@ void main(void) {
   vec4 mvPosition = viewMatrix * modelMatrix * vec4(transformed, 1.0);
 
   vViewPosition = -mvPosition.xyz;
+  vUv = uv;
   vNormal = normalize(transformedNormal);
 
   gl_Position = projectionMatrix * mvPosition;

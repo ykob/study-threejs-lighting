@@ -6,7 +6,8 @@ import fs from './glsl/MeshLambert.fs'
 export default class MeshLambert extends THREE.Mesh {
   constructor() {
     // Define Geometry
-    const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16)
+    // const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16)
+    const geometry = new THREE.SphereGeometry(5, 32, 32)
 
     // Define Material
     const material = new THREE.RawShaderMaterial({
@@ -15,6 +16,9 @@ export default class MeshLambert extends THREE.Mesh {
         {
           time: {
             value: 0,
+          },
+          normalMap: {
+            value: null,
           },
         },
       ]),
@@ -26,6 +30,12 @@ export default class MeshLambert extends THREE.Mesh {
     // Create Object3D
     super(geometry, material)
     this.name = 'MeshLambert'
+  }
+
+  start(normalMap) {
+    const { uniforms } = this.material
+
+    uniforms.normalMap.value = normalMap
   }
 
   update() {

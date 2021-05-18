@@ -26,12 +26,14 @@ export default class WebGLContent {
     this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
     this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
     this.controls = null
+    this.texLoader = new THREE.TextureLoader()
   }
 
-  start() {
+  async start() {
     const canvas = document.getElementById('canvas-webgl')
+    let normalMap
 
-    this.renderer = new THREE.WebGLRenderer({
+    this.renderer = new THREE.WebGL1Renderer({
       canvas,
       alpha: true,
       antialias: true,
@@ -45,6 +47,17 @@ export default class WebGLContent {
     this.controls.enableDamping = true
     this.controls.enablePan = false
     this.controls.enableZoom = false
+
+    await Promise.all([
+      this.texLoader.loadAsync(
+        require('@/assets/img/MetalPlates006_1K_Normal.jpg')
+      ),
+    ]).then((response) => {
+      normalMap = response[0]
+      normalMap.wrapT = normalMap.wrapS = THREE.RepeatWrapping
+    })
+    this.meshLambert.start(normalMap)
+    this.meshPhong.start(normalMap)
 
     this.scene.add(this.meshLambert)
     this.scene.add(this.meshPhong)
