@@ -8,6 +8,7 @@ export default class MeshPhong extends THREE.Mesh {
     // Define Geometry
     // const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16)
     const geometry = new THREE.TorusGeometry(16, 6, 16, 100)
+    geometry.computeTangents()
 
     // Define Material
     const material = new THREE.RawShaderMaterial({
