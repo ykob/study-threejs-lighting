@@ -1,5 +1,5 @@
 # study-threejs-lighting
-It is my study of WebGL lighting with three.js and original shaders.
+It's a study record of 3D graphic lighting with the shaders that I created by quoting from three.js.
 
 ## Build Setup
 
