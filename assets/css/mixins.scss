@@ -1,0 +1,13 @@
+@mixin fontSizeMobile($size: 14) {
+  font-size: $size / 375 * 100vw;
+}
+@mixin l-mobile {
+  @media all and (max-width: $break-point - 1px) {
+    @content;
+  }
+}
+@mixin l-pc {
+  @media all and (min-width: $break-point) {
+    @content;
+  }
+}

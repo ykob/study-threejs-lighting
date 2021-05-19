@@ -1,6 +1,8 @@
 <template lang="pug">
-.page
-  nuxt
+div
+  Header
+  .page
+    nuxt
   canvas#canvas-webgl
 </template>
 
@@ -32,10 +34,12 @@ export default {
 <style lang="scss" scoped>
 .page {
   position: relative;
+  z-index: z(page);
 }
 canvas {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: z(canvas);
 }
 </style>
