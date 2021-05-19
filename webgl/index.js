@@ -46,7 +46,6 @@ export default class WebGLContent {
     this.controls.dampingFactor = 0.1
     this.controls.enableDamping = true
     this.controls.enablePan = false
-    this.controls.enableZoom = false
 
     await Promise.all([
       this.texLoader.loadAsync(require('@/assets/img/normal.jpg')),
