@@ -18,7 +18,7 @@ export default class MeshRipple extends THREE.Mesh {
             value: 0,
           },
           shininess: {
-            value: 30,
+            value: 50,
           },
           normalMap: {
             value: null,

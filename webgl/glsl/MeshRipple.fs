@@ -62,16 +62,21 @@ vec3 calcSpecular(
   return (F * (G * D));
 }
 
+vec3 blendNormalRNM(vec3 n1, vec3 n2) {
+	n1 += vec3(0.0, 0.0, 1.0);
+	n2 *= vec3(-1.0, -1.0, 1.0);
+  return n1 * dot(n1, n2) / n1.z - n2;
+}
+
 void main() {
   // Normal with Tangent Space
   vec3 normal = normalize(vNormal);
   vec3 tangent = normalize(vTangent);
   vec3 bitangent = normalize(vBitangent);
   mat3 vTBN = mat3(tangent, bitangent, normal);
-  vec3 mapNBase = texture2D(normalMap, vUv + time * 0.02).xyz;
-  vec3 mapNAdd1 = texture2D(normalMap, vUv * 0.25 + time * 0.01).xyz;
-  vec3 mapNAdd2 = texture2D(normalMap, vUv * 0.25 - time * 0.01).xyz;
-  vec3 mapN = (mapNAdd1 * mapNAdd2 / mapNBase) * 2.0 - 1.0;
+  vec3 mapN1 = texture2D(normalMap, vUv + time * 0.01).xyz * 2.0 - 1.0;
+  vec3 mapN2 = texture2D(normalMap, vUv + vec2(0.0, 0.5) - time * 0.01).xyz * 2.0 - 1.0;
+  vec3 mapN = blendNormalRNM(mapN1, mapN2);
   normal = normalize(vTBN * mapN);
 
   // Define geometry
