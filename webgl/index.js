@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import Camera from './Camera'
 import MeshLambert from './MeshLambert'
 import MeshPhong from './MeshPhong'
+import MeshRipple from './MeshRipple'
 import AmbientLight from './AmbientLight'
 import DirectionalLight from './DirectionalLight'
 
@@ -18,6 +19,7 @@ export default class WebGLContent {
     this.camera = new Camera()
     this.meshLambert = new MeshLambert()
     this.meshPhong = new MeshPhong()
+    this.meshRipple = new MeshRipple()
     this.ambLight = new AmbientLight()
     this.dirLight1 = new DirectionalLight()
     this.dirLight1.position.set(-20, 20, 20)
@@ -31,7 +33,8 @@ export default class WebGLContent {
 
   async start() {
     const canvas = document.getElementById('canvas-webgl')
-    let normalMap
+    let normalMap1
+    let normalMap2
 
     this.renderer = new THREE.WebGL1Renderer({
       canvas,
@@ -49,15 +52,20 @@ export default class WebGLContent {
 
     await Promise.all([
       this.texLoader.loadAsync(require('@/assets/img/normal.jpg')),
+      this.texLoader.loadAsync(require('@/assets/img/Ocean-4-Normal.jpg')),
     ]).then((response) => {
-      normalMap = response[0]
-      normalMap.wrapT = normalMap.wrapS = THREE.RepeatWrapping
+      normalMap1 = response[0]
+      normalMap1.wrapT = normalMap1.wrapS = THREE.RepeatWrapping
+      normalMap2 = response[1]
+      normalMap2.wrapT = normalMap2.wrapS = THREE.RepeatWrapping
     })
-    this.meshLambert.start(normalMap)
-    this.meshPhong.start(normalMap)
+    this.meshLambert.start(normalMap1)
+    this.meshPhong.start(normalMap1)
+    this.meshRipple.start(normalMap2)
 
     this.scene.add(this.meshLambert)
     this.scene.add(this.meshPhong)
+    this.scene.add(this.meshRipple)
     this.scene.add(this.ambLight)
     this.scene.add(this.dirLight1)
     this.scene.add(this.dirLightHelper1)
@@ -65,14 +73,19 @@ export default class WebGLContent {
     this.scene.add(this.dirLightHelper2)
 
     this.meshLambert.visible = false
+    this.meshPhong.visible = true
+    this.meshRipple.visible = false
 
     this.resize()
     this.clock.start()
   }
 
   update() {
+    const time = this.clock.running === true ? this.clock.getDelta() : 0
+
     this.meshLambert.update()
     this.meshPhong.update()
+    this.meshRipple.update(time)
     this.renderer.render(this.scene, this.camera)
     this.controls.update()
   }
