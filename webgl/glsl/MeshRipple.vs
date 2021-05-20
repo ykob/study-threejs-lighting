@@ -18,11 +18,10 @@ void main(void) {
   vec3 transformedNormal = normal;
   transformedNormal = normalMatrix * transformedNormal;
 
-  vec3 transformed = vec3(position);
+  vec3 transformed = position;
   vec4 mvPosition = viewMatrix * modelMatrix * vec4(transformed, 1.0);
 
-  vec3 objectTangent = vec3(tangent.xyz);
-  vec3 transformedTangent = (viewMatrix * modelMatrix * vec4(objectTangent, 0.0)).xyz;
+  vec3 transformedTangent = (viewMatrix * modelMatrix * vec4(tangent.xyz, 0.0)).xyz;
 
   vViewPosition = -mvPosition.xyz;
   vUv = uv;
