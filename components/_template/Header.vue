@@ -6,6 +6,25 @@
     |It's a study record of 3D graphic lighting
     br
     |with the shaders that I created by quoting from three.js.
+  .buttons
+    Button(
+      tag = 'a'
+      href = 'https://github.com/ykob/study-threejs-lighting'
+      width = '32px'
+      height = '32px'
+      radius = '50%'
+      target = '_blank'
+      )
+      IconGithub
+    Button(
+      tag = 'a'
+      href = 'https://twitter.com/ykob0123'
+      width = '32px'
+      height = '32px'
+      radius = '50%'
+      target = '_blank'
+      )
+      IconTwitter
 </template>
 
 <script>
@@ -33,8 +52,15 @@ export default {}
   }
   p {
     line-height: 1.5;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 8px;
     font-size: 11px;
+  }
+  .buttons {
+    display: flex;
+  }
+  .button {
+    margin-right: 4px;
   }
 }
 </style>
