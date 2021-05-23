@@ -8,6 +8,7 @@
     |with the shaders that I created by quoting from three.js.
   .buttons
     Button(
+      role = 'transparent'
       tag = 'a'
       href = 'https://github.com/ykob/study-threejs-lighting'
       width = '32px'
@@ -17,6 +18,7 @@
       )
       IconGithub
     Button(
+      role = 'transparent'
       tag = 'a'
       href = 'https://twitter.com/ykob0123'
       width = '32px'

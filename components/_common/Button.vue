@@ -56,6 +56,7 @@ export default {
 .button {
   appearance: none;
   box-sizing: border-box;
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -64,6 +65,16 @@ export default {
   text-decoration: none;
   transition-duration: 0.2s;
   &.common {
+    border: 0;
+    color: #000;
+    background-color: #fff;
+    transition-property: color, background-color;
+    &:hover {
+      color: #fff;
+      background-color: #333;
+    }
+  }
+  &.transparent {
     border: 0;
     color: #fff;
     background-color: transparent;
