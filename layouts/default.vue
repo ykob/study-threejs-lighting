@@ -3,6 +3,7 @@ div
   Header
   .page
     nuxt
+  Controls
 </template>
 
 <script>

@@ -13,20 +13,22 @@ canvas.setAttribute('id', 'canvas-webgl')
 
 export default class WebGLContent {
   constructor() {
+    // basics three.js instances
     this.renderer = new THREE.WebGL1Renderer({
       canvas,
       alpha: true,
       antialias: true,
     })
-    this.renderer.setClearColor(0x000000, 1.0)
-    this.renderer.shadowMap.enabled = true
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
     this.resolution = new THREE.Vector2()
     this.clock = new THREE.Clock({
       autoStart: false,
     })
     this.scene = new THREE.Scene()
     this.camera = new Camera()
+    this.texLoader = new THREE.TextureLoader()
+    this.controls = new OrbitControls(this.camera, canvas)
+
+    // meshes and lights
     this.meshLambert = new MeshLambert()
     this.meshPhong = new MeshPhong()
     this.meshRipple = new MeshRipple()
@@ -37,11 +39,17 @@ export default class WebGLContent {
     this.dirLight2.position.set(20, 20, 20)
     this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
     this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
-    this.controls = new OrbitControls(this.camera, canvas)
+
+    // Other than three.js
+    this.isPlaying = true
+
+    // initialize
+    this.renderer.setClearColor(0x000000, 1.0)
+    this.renderer.shadowMap.enabled = true
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
     this.controls.dampingFactor = 0.1
     this.controls.enableDamping = true
     this.controls.enablePan = false
-    this.texLoader = new THREE.TextureLoader()
 
     document.body.appendChild(canvas)
   }
@@ -83,9 +91,11 @@ export default class WebGLContent {
   update() {
     const time = this.clock.running === true ? this.clock.getDelta() : 0
 
-    this.meshLambert.update()
-    this.meshPhong.update()
-    this.meshRipple.update(time)
+    if (this.isPlaying) {
+      this.meshLambert.update()
+      this.meshPhong.update()
+      this.meshRipple.update(time)
+    }
     this.renderer.render(this.scene, this.camera)
     this.controls.update()
   }
@@ -94,5 +104,9 @@ export default class WebGLContent {
     this.resolution.set(window.innerWidth, window.innerHeight)
     this.camera.resize(this.resolution)
     this.renderer.setSize(this.resolution.x, this.resolution.y)
+  }
+
+  playPause(bool) {
+    this.isPlaying = bool
   }
 }
