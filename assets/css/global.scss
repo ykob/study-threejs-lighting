@@ -15,3 +15,9 @@ h6 {
   line-height: 0.65;
   font-weight: 400;
 }
+#canvas-webgl {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: z(canvas);
+}

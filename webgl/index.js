@@ -8,9 +8,19 @@ import MeshRipple from './MeshRipple'
 import AmbientLight from './AmbientLight'
 import DirectionalLight from './DirectionalLight'
 
+const canvas = document.createElement('canvas')
+canvas.setAttribute('id', 'canvas-webgl')
+
 export default class WebGLContent {
   constructor() {
-    this.renderer = null
+    this.renderer = new THREE.WebGL1Renderer({
+      canvas,
+      alpha: true,
+      antialias: true,
+    })
+    this.renderer.setClearColor(0x000000, 1.0)
+    this.renderer.shadowMap.enabled = true
+    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
     this.resolution = new THREE.Vector2()
     this.clock = new THREE.Clock({
       autoStart: false,
@@ -27,28 +37,18 @@ export default class WebGLContent {
     this.dirLight2.position.set(20, 20, 20)
     this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
     this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
-    this.controls = null
-    this.texLoader = new THREE.TextureLoader()
-  }
-
-  async start() {
-    const canvas = document.getElementById('canvas-webgl')
-    let normalMap1
-    let normalMap2
-
-    this.renderer = new THREE.WebGL1Renderer({
-      canvas,
-      alpha: true,
-      antialias: true,
-    })
-    this.renderer.setClearColor(0x000000, 1.0)
-    this.renderer.shadowMap.enabled = true
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement)
+    this.controls = new OrbitControls(this.camera, canvas)
     this.controls.dampingFactor = 0.1
     this.controls.enableDamping = true
     this.controls.enablePan = false
+    this.texLoader = new THREE.TextureLoader()
+
+    document.body.appendChild(canvas)
+  }
+
+  async start() {
+    let normalMap1
+    let normalMap2
 
     await Promise.all([
       this.texLoader.loadAsync(require('@/assets/img/normal.jpg')),
