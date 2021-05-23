@@ -7,25 +7,21 @@ div
 </template>
 
 <script>
-import WebGLContent from '@/webgl'
-
-const webgl = new WebGLContent()
-
 export default {
   mounted() {
     window.addEventListener('resize', this.resize)
 
-    webgl.start()
+    this.$webgl.start()
     this.resize()
     this.update()
   },
   methods: {
     update() {
-      webgl.update()
+      this.$webgl.update()
       requestAnimationFrame(this.update)
     },
     resize() {
-      webgl.resize()
+      this.$webgl.resize()
     },
   },
 }
