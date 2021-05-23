@@ -82,7 +82,7 @@ export default class WebGLContent {
 
     this.meshLambert.visible = false
     this.meshPhong.visible = true
-    this.meshRipple.visible = false
+    this.meshRipple.visible = true
 
     this.resize()
     this.clock.start()

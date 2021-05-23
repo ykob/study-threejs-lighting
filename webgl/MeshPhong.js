@@ -11,6 +11,9 @@ export default class MeshPhong extends THREE.Mesh {
     geometry.computeTangents()
 
     // Define Material
+    const uvTransform = new THREE.Matrix3()
+    uvTransform.scale(2, 1)
+
     const material = new THREE.RawShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([
         THREE.UniformsLib.lights,
@@ -27,8 +30,8 @@ export default class MeshPhong extends THREE.Mesh {
           normalScale: {
             value: new THREE.Vector2(1, 1),
           },
-          uvScale: {
-            value: new THREE.Vector2(2, 1),
+          uvTransform: {
+            value: uvTransform,
           },
         },
       ]),

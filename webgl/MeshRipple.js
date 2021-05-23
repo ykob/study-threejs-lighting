@@ -6,10 +6,13 @@ import fs from './glsl/MeshRipple.fs'
 export default class MeshRipple extends THREE.Mesh {
   constructor() {
     // Define Geometry
-    const geometry = new THREE.PlaneGeometry(48, 48)
+    const geometry = new THREE.PlaneGeometry(500, 500)
     geometry.computeTangents()
 
     // Define Material
+    const uvTransform = new THREE.Matrix3()
+    uvTransform.scale(5, 5)
+
     const material = new THREE.RawShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([
         THREE.UniformsLib.lights,
@@ -26,8 +29,8 @@ export default class MeshRipple extends THREE.Mesh {
           normalScale: {
             value: new THREE.Vector2(1, 1),
           },
-          uvScale: {
-            value: new THREE.Vector2(1, 1),
+          uvTransform: {
+            value: uvTransform,
           },
         },
       ]),
@@ -39,6 +42,7 @@ export default class MeshRipple extends THREE.Mesh {
     // Create Object3D
     super(geometry, material)
     this.name = 'MeshRipple'
+    this.position.y = -25
     this.rotation.x = (Math.PI / 180) * -90
   }
 
