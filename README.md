@@ -18,10 +18,9 @@ $ yarn start
 $ yarn generate
 ```
 
-## Links 
+## Reference sources 
 
 - [three.js shaders](https://github.com/mrdoob/three.js/tree/master/src/renderers/shaders)
-
 - [THREE.AmbientLight](https://threejs.org/docs/?q=Light#api/en/lights/AmbientLight)
 - [THREE.DirectionalLight](https://threejs.org/docs/?q=Light#api/en/lights/DirectionalLight)
 - [THREE.HemisphereLight](https://threejs.org/docs/?q=Light#api/en/lights/HemisphereLight)
