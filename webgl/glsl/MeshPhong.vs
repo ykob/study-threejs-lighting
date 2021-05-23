@@ -7,6 +7,7 @@ uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;
 uniform mat4 projectionMatrix;
 uniform mat3 normalMatrix;
+uniform vec2 uvScale;
 
 varying vec3 vViewPosition;
 varying vec2 vUv;
@@ -24,7 +25,7 @@ void main(void) {
   vec3 transformedTangent = (viewMatrix * modelMatrix * vec4(tangent.xyz, 0.0)).xyz;
 
   vViewPosition = -mvPosition.xyz;
-  vUv = uv;
+  vUv = uvScale * uv;
   vNormal = normalize(transformedNormal);
   vTangent = normalize(transformedTangent);
   vBitangent = normalize(cross(vNormal, vTangent) * tangent.w);

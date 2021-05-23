@@ -24,6 +24,12 @@ export default class MeshPhong extends THREE.Mesh {
           normalMap: {
             value: null,
           },
+          normalScale: {
+            value: new THREE.Vector2(1, 1),
+          },
+          uvScale: {
+            value: new THREE.Vector2(2, 1),
+          },
         },
       ]),
       vertexShader: vs,

@@ -6,6 +6,7 @@ uniform mat4 viewMatrix;
 uniform float time;
 uniform float shininess;
 uniform sampler2D normalMap;
+uniform vec2 normalScale;
 
 varying vec3 vViewPosition;
 varying vec2 vUv;
@@ -77,6 +78,7 @@ void main() {
   vec3 mapN1 = texture2D(normalMap, vUv + time * 0.01).xyz * 2.0 - 1.0;
   vec3 mapN2 = texture2D(normalMap, vUv + vec2(0.0, 0.5) - time * 0.01).xyz * 2.0 - 1.0;
   vec3 mapN = blendNormalRNM(mapN1, mapN2);
+  mapN.xy *= normalScale;
   normal = normalize(vTBN * mapN);
 
   // Define geometry

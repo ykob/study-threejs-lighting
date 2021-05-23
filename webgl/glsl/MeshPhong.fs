@@ -5,6 +5,7 @@ precision highp float;
 uniform mat4 viewMatrix;
 uniform float shininess;
 uniform sampler2D normalMap;
+uniform vec2 normalScale;
 
 varying vec3 vViewPosition;
 varying vec2 vUv;
@@ -68,6 +69,7 @@ void main() {
   vec3 bitangent = normalize(vBitangent);
   mat3 vTBN = mat3(tangent, bitangent, normal);
   vec3 mapN = texture2D(normalMap, vUv).xyz * 2.0 - 1.0;
+  mapN.xy *= normalScale;
   normal = normalize(vTBN * mapN);
 
   // Define geometry
