@@ -18,6 +18,7 @@ export default class MeshPhong extends THREE.Mesh {
       uniforms: THREE.UniformsUtils.merge([
         THREE.UniformsLib.normalmap,
         THREE.UniformsLib.lights,
+        THREE.UniformsLib.fog,
         {
           time: {
             value: 0,
@@ -33,6 +34,7 @@ export default class MeshPhong extends THREE.Mesh {
       vertexShader: vs,
       fragmentShader: fs,
       lights: true,
+      fog: true,
     })
 
     // Create Object3D

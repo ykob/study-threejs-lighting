@@ -3,20 +3,23 @@ import * as THREE from 'three'
 import vs from './glsl/MeshRipple.vs'
 import fs from './glsl/MeshRipple.fs'
 
+const SIZE = 20
+
 export default class MeshRipple extends THREE.Mesh {
   constructor() {
     // Define Geometry
-    const geometry = new THREE.PlaneGeometry(500, 500)
+    const geometry = new THREE.PlaneGeometry(SIZE * 100, SIZE * 100)
     geometry.computeTangents()
 
     // Define Material
     const uvTransform = new THREE.Matrix3()
-    uvTransform.scale(5, 5)
+    uvTransform.scale(SIZE, SIZE)
 
     const material = new THREE.RawShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([
         THREE.UniformsLib.normalmap,
         THREE.UniformsLib.lights,
+        THREE.UniformsLib.fog,
         {
           time: {
             value: 0,
@@ -32,6 +35,7 @@ export default class MeshRipple extends THREE.Mesh {
       vertexShader: vs,
       fragmentShader: fs,
       lights: true,
+      fog: true,
     })
 
     // Create Object3D

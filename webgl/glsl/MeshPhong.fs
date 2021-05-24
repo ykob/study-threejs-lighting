@@ -62,6 +62,12 @@ vec3 calcSpecular(
   return (F * (G * D));
 }
 
+// Fog
+uniform vec3 fogColor;
+uniform float fogNear;
+uniform float fogFar;
+varying float fogDepth;
+
 void main() {
   // Normal with Tangent Space
   vec3 normal = normalize(vNormal);
@@ -96,4 +102,8 @@ void main() {
   vec3 light = diffuse + specular + ambientLightColor;
 
   gl_FragColor = vec4(light, 1.0);
+
+  float fogFactor = smoothstep(fogNear, fogFar, fogDepth);
+
+  gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, fogFactor);
 }
