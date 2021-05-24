@@ -16,6 +16,7 @@ export default class MeshPhong extends THREE.Mesh {
 
     const material = new THREE.RawShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([
+        THREE.UniformsLib.normalmap,
         THREE.UniformsLib.lights,
         {
           time: {
@@ -23,12 +24,6 @@ export default class MeshPhong extends THREE.Mesh {
           },
           shininess: {
             value: 30,
-          },
-          normalMap: {
-            value: null,
-          },
-          normalScale: {
-            value: new THREE.Vector2(1, 1),
           },
           uvTransform: {
             value: uvTransform,
