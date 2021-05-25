@@ -51,6 +51,7 @@ export default class WebGLContent {
     this.controls.dampingFactor = 0.1
     this.controls.enableDamping = true
     this.controls.enablePan = false
+    this.controls.saveState()
 
     document.body.appendChild(canvas)
   }
@@ -109,5 +110,9 @@ export default class WebGLContent {
 
   playPause(bool) {
     this.isPlaying = bool
+  }
+
+  resetControls() {
+    this.controls.reset()
   }
 }

@@ -12,6 +12,13 @@
     IconPlay(
       v-else
       )
+  Button(
+    width = '44px'
+    height = '44px'
+    radius = '50%'
+    @click = 'resetControls'
+    )
+    IconRestore
 </template>
 
 <script>
@@ -21,11 +28,17 @@ export default {
       return this.$store.state.isPlaying
     },
   },
+  methods: {
+    resetControls() {
+      this.$webgl.resetControls()
+    },
+  },
 }
 </script>
 
 <style lang="scss" scoped>
 .controls {
+  display: flex;
   position: fixed;
   bottom: 0;
   right: 0;
@@ -52,7 +65,7 @@ export default {
     display: flex;
   }
   .button {
-    margin-right: 4px;
+    margin-left: 12px;
   }
 }
 </style>
