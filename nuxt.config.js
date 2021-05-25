@@ -11,6 +11,9 @@ export default {
 
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
+  router: {
+    base: '/study-threejs-lighting/'
+  },
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
