@@ -34,6 +34,7 @@
     "prettier": "^2.2.1",
     "pug": "^3.0.2",
     "pug-plain-loader": "^1.1.0",
+    "push-dir": "^0.4.1",
     "raw-loader": "^4.0.2",
     "sass": "^1.32.12",
     "sass-loader": "10.1.1",
