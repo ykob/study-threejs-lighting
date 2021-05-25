@@ -63,7 +63,13 @@ export default {
   line-height: 1;
   overflow: hidden;
   text-decoration: none;
-  transition-duration: 0.2s;
+  transition-duration: 0.4s;
+  &:hover {
+    transition-duration: 0.2s;
+  }
+  &:active {
+    transition-duration: 0.04s;
+  }
   &.common {
     border: 0;
     color: #000;
@@ -72,6 +78,9 @@ export default {
     &:hover {
       color: #fff;
       background-color: #333;
+    }
+    &:active {
+      background-color: #fb0;
     }
   }
   &.transparent {
@@ -82,6 +91,9 @@ export default {
     &:hover {
       color: #000;
       background-color: #fff;
+    }
+    &:active {
+      background-color: #fb0;
     }
   }
 }
