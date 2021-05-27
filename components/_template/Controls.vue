@@ -1,24 +1,32 @@
 <template lang="pug">
 .controls
-  Button(
-    width = '44px'
-    height = '44px'
-    radius = '50%'
-    @click = '$store.commit("playPause")'
-    )
-    IconPause(
-      v-if = 'isPlaying'
+  .buttons
+    Button(
+      width = '36px'
+      height = '36px'
+      radius = '50%'
+      @click = '$store.commit("playPause")'
       )
-    IconPlay(
-      v-else
+      IconPause(
+        v-if = 'isPlaying'
+        )
+      IconPlay(
+        v-else
+        )
+    Button(
+      width = '36px'
+      height = '36px'
+      radius = '50%'
+      @click = 'resetControls'
       )
-  Button(
-    width = '44px'
-    height = '44px'
-    radius = '50%'
-    @click = 'resetControls'
-    )
-    IconRestore
+      IconRestore
+  .buttons
+    Button(
+      width = '36px'
+      height = '36px'
+      radius = '50%'
+      )
+      IconHelp
 </template>
 
 <script>
@@ -39,16 +47,21 @@ export default {
 <style lang="scss" scoped>
 .controls {
   display: flex;
+  justify-content: space-between;
   position: fixed;
   bottom: 0;
   right: 0;
   z-index: z(controls);
   letter-spacing: 0.1em;
+  background-color: #111;
   @include l-pc {
-    padding: 40px;
+    flex-direction: column;
+    top: 0;
+    padding: 20px 12px;
   }
   @include l-mobile {
-    padding: 20px;
+    left: 0;
+    padding: 12px;
   }
   h1 {
     margin-top: 0;
@@ -61,11 +74,21 @@ export default {
     margin-bottom: 8px;
     font-size: 11px;
   }
-  .buttons {
+}
+.buttons {
+  @include l-mobile {
     display: flex;
   }
-  .button {
-    margin-left: 12px;
+}
+.button {
+  @include l-pc {
+    margin-top: 12px;
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+  @include l-mobile {
+    margin-left: 8px;
   }
 }
 </style>

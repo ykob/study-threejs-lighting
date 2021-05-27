@@ -37,14 +37,15 @@ export default {}
 .header {
   position: fixed;
   padding-bottom: 0;
-  bottom: 0;
   left: 0;
   z-index: z(header);
   letter-spacing: 0.1em;
   @include l-pc {
+    bottom: 0;
     padding: 40px;
   }
   @include l-mobile {
+    top: 0;
     padding: 20px;
   }
   h1 {
