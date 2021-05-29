@@ -6,13 +6,12 @@ import fs from './glsl/MeshPhong.fs'
 export default class MeshPhong extends THREE.Mesh {
   constructor() {
     // Define Geometry
-    // const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16)
     const geometry = new THREE.TorusGeometry(16, 6, 16, 100)
     geometry.computeTangents()
 
     // Define Material
     const uvTransform = new THREE.Matrix3()
-    uvTransform.scale(2, 1)
+    uvTransform.scale(3, 1)
 
     const material = new THREE.RawShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([

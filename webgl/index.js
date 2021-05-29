@@ -61,7 +61,7 @@ export default class WebGLContent {
     let normalMap2
 
     await Promise.all([
-      this.texLoader.loadAsync(require('@/assets/img/normal.jpg')),
+      this.texLoader.loadAsync(require('@/assets/img/Alunar_Cliff_normal.jpg')),
       this.texLoader.loadAsync(require('@/assets/img/Ocean-4-Normal.jpg')),
     ]).then((response) => {
       normalMap1 = response[0]
