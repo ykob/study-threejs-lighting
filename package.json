@@ -15,7 +15,7 @@
     "core-js": "^3.9.1",
     "normalize.css": "^8.0.1",
     "nuxt": "^2.15.3",
-    "three": "^0.128.0"
+    "three": "0.129.0"
   },
   "devDependencies": {
     "@mdi/js": "^5.9.55",
