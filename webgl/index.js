@@ -47,7 +47,7 @@ export default class WebGLContent {
     this.renderer.setClearColor(0x000000, 1.0)
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-    this.scene.fog = new THREE.Fog(0x000000, 150, 300)
+    this.scene.fog = new THREE.Fog(0x000000, 100, 600)
     this.controls.dampingFactor = 0.1
     this.controls.enableDamping = true
     this.controls.enablePan = false
