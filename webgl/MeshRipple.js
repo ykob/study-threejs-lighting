@@ -3,7 +3,7 @@ import * as THREE from 'three'
 import vs from './glsl/MeshRipple.vs'
 import fs from './glsl/MeshRipple.fs'
 
-const SIZE = 60
+const SIZE = 30
 
 export default class MeshRipple extends THREE.Mesh {
   constructor() {
