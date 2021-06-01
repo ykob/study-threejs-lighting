@@ -40,8 +40,8 @@ export default class WebGLContent {
     this.dirLight2.position.set(20, 20, 20)
     this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
     this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
-    this.pointLight1 = new PointLight(0x00ff00)
-    this.pointLight1.position.set(0, 20, -30)
+    this.pointLight1 = new PointLight(0xffff00, 1, 60)
+    this.pointLight1.position.set(0, 40, 40)
     this.pointLightHelper1 = new THREE.PointLightHelper(this.pointLight1, 5)
 
     // Other than three.js

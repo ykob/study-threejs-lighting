@@ -23,7 +23,7 @@ export default class MeshPhong extends THREE.Mesh {
             value: 0,
           },
           shininess: {
-            value: 30,
+            value: 100,
           },
           uvTransform: {
             value: uvTransform,
