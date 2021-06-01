@@ -7,6 +7,7 @@ import MeshPhong from './MeshPhong'
 import MeshRipple from './MeshRipple'
 import AmbientLight from './AmbientLight'
 import DirectionalLight from './DirectionalLight'
+import PointLight from './PointLight'
 
 const canvas = document.createElement('canvas')
 canvas.setAttribute('id', 'canvas-webgl')
@@ -39,6 +40,9 @@ export default class WebGLContent {
     this.dirLight2.position.set(20, 20, 20)
     this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
     this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
+    this.pointLight1 = new PointLight(0x00ff00)
+    this.pointLight1.position.set(0, 20, -30)
+    this.pointLightHelper1 = new THREE.PointLightHelper(this.pointLight1, 5)
 
     // Other than three.js
     this.isPlaying = true
@@ -81,6 +85,8 @@ export default class WebGLContent {
     this.scene.add(this.dirLightHelper1)
     this.scene.add(this.dirLight2)
     this.scene.add(this.dirLightHelper2)
+    this.scene.add(this.pointLight1)
+    this.scene.add(this.pointLightHelper1)
 
     this.meshLambert.visible = false
     this.meshPhong.visible = true
