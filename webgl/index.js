@@ -67,11 +67,13 @@ export default class WebGLContent {
     await Promise.all([
       this.texLoader.loadAsync(require('@/assets/img/Alunar_Cliff_normal.png')),
       this.texLoader.loadAsync(require('@/assets/img/Ocean-4-Normal.jpg')),
+      this.texLoader.loadAsync(require('@/assets/img/004_nebula_red.jpg')),
     ]).then((response) => {
       normalMap1 = response[0]
       normalMap1.wrapT = normalMap1.wrapS = THREE.RepeatWrapping
       normalMap2 = response[1]
       normalMap2.wrapT = normalMap2.wrapS = THREE.RepeatWrapping
+      this.scene.background = response[2]
     })
     this.meshLambert.start(normalMap1)
     this.meshPhong.start(normalMap1)
