@@ -25,7 +25,7 @@ export default class MeshRipple extends THREE.Mesh {
             value: 0,
           },
           shininess: {
-            value: 50,
+            value: 120,
           },
           uvTransform: {
             value: uvTransform,
