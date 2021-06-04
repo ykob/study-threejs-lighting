@@ -8,6 +8,7 @@ import MeshRipple from './MeshRipple'
 import AmbientLight from './AmbientLight'
 import DirectionalLight from './DirectionalLight'
 import PointLight from './PointLight'
+import Background from './Background'
 
 const canvas = document.createElement('canvas')
 canvas.setAttribute('id', 'canvas-webgl')
@@ -43,6 +44,7 @@ export default class WebGLContent {
     this.pointLight1 = new PointLight(0xffff00, 0.5, 400)
     this.pointLight1.position.set(0, 50, 200)
     this.pointLightHelper1 = new THREE.PointLightHelper(this.pointLight1, 5)
+    this.background = new Background()
 
     // Other than three.js
     this.isPlaying = true
@@ -51,7 +53,7 @@ export default class WebGLContent {
     this.renderer.setClearColor(0x000000, 1.0)
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-    this.scene.fog = new THREE.Fog(0x000000, 50, 300)
+    this.scene.fog = new THREE.Fog(0x000000, 50, 500)
     this.controls.dampingFactor = 0.1
     this.controls.enableDamping = true
     this.controls.enablePan = false
@@ -63,6 +65,7 @@ export default class WebGLContent {
   async start() {
     let normalMap1
     let normalMap2
+    let bgMap
 
     await Promise.all([
       this.texLoader.loadAsync(require('@/assets/img/Alunar_Cliff_normal.png')),
@@ -73,11 +76,13 @@ export default class WebGLContent {
       normalMap1.wrapT = normalMap1.wrapS = THREE.RepeatWrapping
       normalMap2 = response[1]
       normalMap2.wrapT = normalMap2.wrapS = THREE.RepeatWrapping
-      this.scene.background = response[2]
+      bgMap = response[2]
+      bgMap.wrapT = bgMap.wrapS = THREE.RepeatWrapping
     })
     this.meshLambert.start(normalMap1)
     this.meshPhong.start(normalMap1)
     this.meshRipple.start(normalMap2)
+    this.background.start(bgMap)
 
     this.scene.add(this.meshLambert)
     this.scene.add(this.meshPhong)
@@ -89,6 +94,7 @@ export default class WebGLContent {
     this.scene.add(this.dirLightHelper2)
     this.scene.add(this.pointLight1)
     this.scene.add(this.pointLightHelper1)
+    this.scene.add(this.background)
 
     this.meshLambert.visible = false
     this.meshPhong.visible = true
