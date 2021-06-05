@@ -37,7 +37,6 @@
     "push-dir": "^0.4.1",
     "raw-loader": "^4.0.2",
     "sass": "^1.32.12",
-    "sass-loader": "10.1.1",
-    "webpack-glsl-loader": "^1.0.1"
+    "sass-loader": "10.1.1"
   }
 }
