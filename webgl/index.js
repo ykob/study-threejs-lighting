@@ -68,7 +68,7 @@ export default class WebGLContent {
     let bgMap
 
     await Promise.all([
-      this.texLoader.loadAsync(require('@/assets/img/Alunar_Cliff_normal.png')),
+      this.texLoader.loadAsync(require('@/assets/img/Alunar_Cliff_normal.jpg')),
       this.texLoader.loadAsync(require('@/assets/img/Ocean-4-Normal.jpg')),
       this.texLoader.loadAsync(require('@/assets/img/004_nebula_red.jpg')),
     ]).then((response) => {
