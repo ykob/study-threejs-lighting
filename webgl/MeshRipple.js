@@ -11,12 +11,9 @@ export default class MeshRipple extends THREE.Mesh {
     const geometry = new THREE.PlaneGeometry(SIZE * 100, SIZE * 100)
     geometry.computeTangents()
 
-    // Define Material
-    const uvTransform = new THREE.Matrix3()
-    uvTransform.scale(SIZE, SIZE)
-
     const material = new THREE.RawShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([
+        THREE.UniformsLib.common,
         THREE.UniformsLib.normalmap,
         THREE.UniformsLib.lights,
         THREE.UniformsLib.fog,
@@ -27,9 +24,6 @@ export default class MeshRipple extends THREE.Mesh {
           shininess: {
             value: 120,
           },
-          uvTransform: {
-            value: uvTransform,
-          },
         },
       ]),
       vertexShader: vs,
@@ -37,6 +31,7 @@ export default class MeshRipple extends THREE.Mesh {
       lights: true,
       fog: true,
     })
+    material.uniforms.uvTransform.value.scale(SIZE, SIZE)
 
     // Create Object3D
     super(geometry, material)

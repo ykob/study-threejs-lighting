@@ -9,12 +9,9 @@ export default class MeshPhong extends THREE.Mesh {
     const geometry = new THREE.TorusGeometry(16, 6, 16, 100)
     geometry.computeTangents()
 
-    // Define Material
-    const uvTransform = new THREE.Matrix3()
-    uvTransform.scale(3, 1)
-
     const material = new THREE.RawShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([
+        THREE.UniformsLib.common,
         THREE.UniformsLib.normalmap,
         THREE.UniformsLib.lights,
         THREE.UniformsLib.fog,
@@ -25,9 +22,6 @@ export default class MeshPhong extends THREE.Mesh {
           shininess: {
             value: 100,
           },
-          uvTransform: {
-            value: uvTransform,
-          },
         },
       ]),
       vertexShader: vs,
@@ -35,6 +29,7 @@ export default class MeshPhong extends THREE.Mesh {
       lights: true,
       fog: true,
     })
+    material.uniforms.uvTransform.value.scale(3, 1)
 
     // Create Object3D
     super(geometry, material)
