@@ -36,9 +36,10 @@ export default class MeshPhong extends THREE.Mesh {
     this.name = 'MeshPhong'
   }
 
-  start(normalMap) {
+  start(map, normalMap) {
     const { uniforms } = this.material
 
+    uniforms.map.value = map
     uniforms.normalMap.value = normalMap
   }
 

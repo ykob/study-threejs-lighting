@@ -4,6 +4,7 @@ precision highp float;
 
 uniform mat4 viewMatrix;
 uniform float shininess;
+uniform sampler2D map;
 uniform sampler2D normalMap;
 uniform vec2 normalScale;
 
@@ -95,6 +96,12 @@ uniform float fogFar;
 varying float fogDepth;
 
 void main() {
+  vec4 diffuseColor = vec4(1.0);
+
+  // Map Fragment
+  vec4 texelColor = texture2D(map, vUv);
+  diffuseColor *= texelColor;
+
   // Normal with Tangent Space
   vec3 normal = normalize(vNormal);
   vec3 tangent = normalize(vTangent);
@@ -103,7 +110,7 @@ void main() {
   vec3 mapN = texture2D(normalMap, vUv).xyz * 2.0 - 1.0;
   mapN.xy *= normalScale;
   normal = normalize(vTBN * mapN);
-
+  
   // Define geometry
   GeometricContext geometry;
   geometry.position = -vViewPosition;
@@ -133,7 +140,7 @@ void main() {
 
     // diffuse
     irradiance = calcDiffuse(geometry, directLight);
-    diffuse += irradiance;
+    diffuse += irradiance * diffuseColor.rgb;
 
     // specular
     specular += irradiance * calcSpecular(geometry, directLight);
@@ -148,7 +155,7 @@ void main() {
 
     // diffuse
     irradiance = calcDiffuse(geometry, directLight);
-    diffuse += irradiance;
+    diffuse += irradiance * diffuseColor.rgb;
 
     // specular
     specular += irradiance * calcSpecular(geometry, directLight);
@@ -157,7 +164,7 @@ void main() {
 
   vec3 light = diffuse + specular + ambientLightColor;
 
-  gl_FragColor = vec4(light, 1.0);
+  gl_FragColor = vec4(light, diffuseColor.a);
 
   float fogFactor = smoothstep(fogNear, fogFar, fogDepth);
 

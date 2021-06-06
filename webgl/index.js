@@ -63,24 +63,30 @@ export default class WebGLContent {
   }
 
   async start() {
+    let map1
     let normalMap1
     let normalMap2
     let bgMap
 
     await Promise.all([
+      this.texLoader.loadAsync(
+        require('@/assets/img/Alunar_Cliff_basecolor.png')
+      ),
       this.texLoader.loadAsync(require('@/assets/img/Alunar_Cliff_normal.jpg')),
       this.texLoader.loadAsync(require('@/assets/img/Ocean-4-Normal.jpg')),
       this.texLoader.loadAsync(require('@/assets/img/004_nebula_red.jpg')),
     ]).then((response) => {
-      normalMap1 = response[0]
+      map1 = response[0]
+      map1.wrapT = map1.wrapS = THREE.RepeatWrapping
+      normalMap1 = response[1]
       normalMap1.wrapT = normalMap1.wrapS = THREE.RepeatWrapping
-      normalMap2 = response[1]
+      normalMap2 = response[2]
       normalMap2.wrapT = normalMap2.wrapS = THREE.RepeatWrapping
-      bgMap = response[2]
+      bgMap = response[3]
       bgMap.wrapT = bgMap.wrapS = THREE.RepeatWrapping
     })
     this.meshLambert.start(normalMap1)
-    this.meshPhong.start(normalMap1)
+    this.meshPhong.start(map1, normalMap1)
     this.meshRipple.start(normalMap2)
     this.background.start(bgMap)
 
