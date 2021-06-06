@@ -108,8 +108,8 @@ void main() {
   vec3 tangent = normalize(vTangent);
   vec3 bitangent = normalize(vBitangent);
   mat3 vTBN = mat3(tangent, bitangent, normal);
-  vec3 mapN1 = texture2D(normalMap, vUv + time * 0.01).xyz * 2.0 - 1.0;
-  vec3 mapN2 = texture2D(normalMap, vUv + vec2(0.0, 0.5) - time * 0.01).xyz * 2.0 - 1.0;
+  vec3 mapN1 = texture2D(normalMap, vUv + time * vec2(0.01, -0.01)).xyz * 2.0 - 1.0;
+  vec3 mapN2 = texture2D(normalMap, vUv + vec2(0.0, 0.5) - time * vec2(0.01, -0.01)).xyz * 2.0 - 1.0;
   vec3 mapN = blendNormalRNM(mapN1, mapN2);
   mapN.xy *= normalScale;
   normal = normalize(vTBN * mapN);
