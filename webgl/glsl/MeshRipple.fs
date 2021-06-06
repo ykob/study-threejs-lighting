@@ -47,6 +47,18 @@ struct PointLight {
 };
 uniform PointLight pointLights[NUM_POINT_LIGHTS];
 
+void getPointDirectLightIrradiance(
+  const in PointLight pointLight,
+  const in GeometricContext geometry,
+  out IncidentLight directLight
+) {
+  vec3 lVector = pointLight.position - geometry.position;
+  directLight.direction = normalize(lVector);
+  float lightDistance = length(lVector);
+  directLight.color = pointLight.color;
+  directLight.color *= pow(clamp(-lightDistance / pointLight.distance + 1.0, 0.0, 1.0), pointLight.decay);
+}
+
 // Diffuse
 vec3 calcDiffuse(
   const in GeometricContext geometry,
@@ -75,18 +87,6 @@ vec3 calcSpecular(
   float G = 0.25;
   float D = D_BlinnPhong(shininess, dotNH);
   return (F * (G * D));
-}
-
-//
-float punctualLightIntensityToIrradianceFactor(
-  float lightDistance,
-  float cutoffDistance,
-  float decayExponent
-) {
-  if (cutoffDistance > 0.0 && decayExponent > 0.0) {
-    return pow(clamp(-lightDistance / cutoffDistance + 1.0, 0.0, 1.0), decayExponent);
-  }
-  return 1.0;
 }
 
 // Blending Normal Map
@@ -126,20 +126,9 @@ void main() {
   IncidentLight directLight;
 
   // Point Light
-  PointLight pointLight;
-
   #pragma unroll_loop_start
   for (int i = 0; i < NUM_POINT_LIGHTS; i++) {
-    pointLight = pointLights[i];
-    vec3 lVector = pointLight.position - geometry.position;
-    directLight.direction = normalize(lVector);
-    float lightDistance = length(lVector);
-    directLight.color = pointLight.color;
-    directLight.color *= punctualLightIntensityToIrradianceFactor(
-      lightDistance,
-      pointLight.distance,
-      pointLight.decay
-    );
+    getPointDirectLightIrradiance(pointLights[i], geometry, directLight);
 
     // diffuse
     irradiance = calcDiffuse(geometry, directLight);
