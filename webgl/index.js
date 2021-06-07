@@ -35,15 +35,18 @@ export default class WebGLContent {
     this.meshPhong = new MeshPhong()
     this.meshRipple = new MeshRipple()
     this.ambLight = new AmbientLight()
-    this.dirLight1 = new DirectionalLight()
+    this.dirLight1 = new DirectionalLight(0xff7777, 0.3)
     this.dirLight1.position.set(-20, 20, 20)
-    this.dirLight2 = new DirectionalLight(0x0000ff)
+    this.dirLight2 = new DirectionalLight(0x7777ff, 0.3)
     this.dirLight2.position.set(20, 20, 20)
     this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
     this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
-    this.pointLight1 = new PointLight(0xff99ee, 0.5, 2000)
-    this.pointLight1.position.set(-30, 150, 300)
+    this.pointLight1 = new PointLight(0xff3333, 0.5, 80)
+    this.pointLight1.position.set(-50, 20, 0)
     this.pointLightHelper1 = new THREE.PointLightHelper(this.pointLight1, 5)
+    this.pointLight2 = new PointLight(0x3333ff, 0.5, 80)
+    this.pointLight2.position.set(50, 20, 0)
+    this.pointLightHelper2 = new THREE.PointLightHelper(this.pointLight2, 5)
     this.background = new Background()
 
     // Other than three.js
@@ -100,6 +103,8 @@ export default class WebGLContent {
     this.scene.add(this.dirLightHelper2)
     this.scene.add(this.pointLight1)
     this.scene.add(this.pointLightHelper1)
+    this.scene.add(this.pointLight2)
+    this.scene.add(this.pointLightHelper2)
     this.scene.add(this.background)
 
     this.meshLambert.visible = false

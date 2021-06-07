@@ -151,7 +151,7 @@ void main() {
   }
   #pragma unroll_loop_end
 
-  vec3 light = diffuse + specular + ambientLightColor;
+  vec3 light = diffuse + specular + ambientLightColor * diffuseColor.rgb;
 
   gl_FragColor = vec4(light, diffuseColor.a);
 
