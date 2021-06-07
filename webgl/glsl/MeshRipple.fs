@@ -5,6 +5,8 @@ precision highp float;
 uniform mat4 viewMatrix;
 uniform float time;
 uniform float shininess;
+uniform vec3 diffuse;
+uniform float opacity;
 uniform sampler2D normalMap;
 uniform vec2 normalScale;
 
@@ -103,6 +105,8 @@ uniform float fogFar;
 varying float fogDepth;
 
 void main() {
+  vec4 diffuseColor = vec4(diffuse, opacity);
+
   // Normal with Tangent Space
   vec3 normal = normalize(vNormal);
   vec3 tangent = normalize(vTangent);
@@ -132,7 +136,7 @@ void main() {
 
     // diffuse
     irradiance = calcDiffuse(geometry, directLight);
-    diffuse += irradiance;
+    diffuse += irradiance * diffuseColor.rgb;
 
     // specular
     specular += irradiance * calcSpecular(geometry, directLight);
@@ -147,7 +151,7 @@ void main() {
 
     // diffuse
     irradiance = calcDiffuse(geometry, directLight);
-    diffuse += irradiance;
+    diffuse += irradiance * diffuseColor.rgb;
   }
   #pragma unroll_loop_end
 

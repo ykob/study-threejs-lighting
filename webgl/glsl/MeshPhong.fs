@@ -4,6 +4,8 @@ precision highp float;
 
 uniform mat4 viewMatrix;
 uniform float shininess;
+uniform vec3 diffuse;
+uniform float opacity;
 uniform sampler2D map;
 uniform sampler2D normalMap;
 uniform vec2 normalScale;
@@ -96,7 +98,7 @@ uniform float fogFar;
 varying float fogDepth;
 
 void main() {
-  vec4 diffuseColor = vec4(1.0);
+  vec4 diffuseColor = vec4(diffuse, opacity);
 
   // Map Fragment
   vec4 texelColor = texture2D(map, vUv);
