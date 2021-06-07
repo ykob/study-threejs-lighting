@@ -32,7 +32,7 @@ export default class MeshRipple extends THREE.Mesh {
       fog: true,
     })
     material.uniforms.uvTransform.value.scale(SIZE, SIZE)
-    material.uniforms.diffuse.value.set(0x00ff66)
+    material.uniforms.diffuse.value.set(0x002255)
 
     // Create Object3D
     super(geometry, material)
