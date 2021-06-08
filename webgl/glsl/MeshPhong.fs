@@ -5,9 +5,9 @@ precision highp float;
 uniform mat4 viewMatrix;
 
 uniform float shininess;
+
 uniform vec3 diffuse;
 uniform float opacity;
-
 uniform sampler2D map;
 uniform sampler2D normalMap;
 uniform vec2 normalScale;

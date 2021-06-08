@@ -27,7 +27,7 @@ export default class Ground extends THREE.Mesh {
             value: 0,
           },
           shininess: {
-            value: 120,
+            value: 30,
           },
           uvTransform: {
             value: uvTransform,
@@ -43,7 +43,7 @@ export default class Ground extends THREE.Mesh {
     // Create Object3D
     super(geometry, material)
     this.name = 'Ground'
-    this.position.y = -35
+    this.position.y = -30
     this.rotation.x = (Math.PI / 180) * -90
   }
 

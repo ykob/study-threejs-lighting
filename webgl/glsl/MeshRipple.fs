@@ -6,16 +6,19 @@ uniform mat4 viewMatrix;
 
 uniform float time;
 uniform float shininess;
+uniform mat4 textureMatrix;
+uniform sampler2D tReflectionMap;
+uniform sampler2D tRefractionMap;
+
 uniform vec3 diffuse;
 uniform float opacity;
-uniform vec2 resolution;
-
-uniform sampler2D map;
 uniform sampler2D normalMap;
 uniform vec2 normalScale;
 
 varying vec3 vViewPosition;
+varying vec3 vToEye;
 varying vec2 vUv;
+varying vec4 vCoord;
 varying vec3 vNormal;
 varying vec3 vTangent;
 varying vec3 vBitangent;
@@ -111,21 +114,11 @@ varying float fogDepth;
 void main() {
   vec4 diffuseColor = vec4(diffuse, opacity);
 
-  // Normal with Tangent Space
-  vec3 normal = normalize(vNormal);
-  vec3 tangent = normalize(vTangent);
-  vec3 bitangent = normalize(vBitangent);
-  mat3 vTBN = mat3(tangent, bitangent, normal);
-  vec3 mapN1 = texture2D(normalMap, vUv + time * vec2(0.01, -0.01)).xyz * 2.0 - 1.0;
-  vec3 mapN2 = texture2D(normalMap, vUv + vec2(0.0, 0.5) - time * vec2(0.01, -0.01)).xyz * 2.0 - 1.0;
-  vec3 mapN = blendNormalRNM(mapN1, mapN2);
-  mapN.xy *= normalScale;
-  normal = normalize(vTBN * mapN);
-
-  // Map Fragment
-  vec2 uv = gl_FragCoord.xy / resolution;
-  vec4 texelColor = texture2D(map, uv);
-  diffuseColor *= texelColor;
+  // // Normal
+  vec4 mapN1 = texture2D(normalMap, vUv - time * vec2(0.01, -0.01));
+  vec4 mapN2 = texture2D(normalMap, vUv - time * vec2(0.01, -0.01));
+  vec4 mapN = mix(mapN1, mapN2, 0.5);
+  vec3 normal = normalize(vec3(mapN.r * 2.0 - 1.0, mapN.b, mapN.g * 2.0 - 1.0));
 
   // Define geometry
   GeometricContext geometry;
@@ -166,7 +159,16 @@ void main() {
 
   vec3 light = diffuse + specular + ambientLightColor;
 
-  gl_FragColor = vec4(light, 1.0);
+  // calculate the fresnel term to blend reflection and refraction maps
+  float reflectivity = 0.05;
+  float theta = max(dot(normalize(vToEye), normal), 0.0);
+  float reflectance = reflectivity + (1.0 - reflectivity) * pow((1.0 - theta), 5.0);
+  vec3 coord = vCoord.xyz / vCoord.w;
+  vec2 uv = coord.xy + coord.z * normal.xz * 0.15;
+  vec4 reflectColor = texture2D(tReflectionMap, vec2(1.0 - uv.x, uv.y));
+  vec4 refractColor = texture2D(tRefractionMap, uv) * 0.3;
+
+  gl_FragColor = vec4(light, 1.0) + mix(refractColor, reflectColor, reflectance);
 
   float fogFactor = smoothstep(fogNear, fogFar, fogDepth);
 

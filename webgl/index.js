@@ -29,7 +29,6 @@ export default class WebGLContent {
     this.scene = new THREE.Scene()
     this.camera = new Camera()
     this.texLoader = new THREE.TextureLoader()
-    this.renderTarget = new THREE.WebGLRenderTarget()
     this.controls = new OrbitControls(this.camera, canvas)
 
     // meshes and lights
@@ -59,7 +58,7 @@ export default class WebGLContent {
     this.renderer.setClearColor(0x000000, 1.0)
     this.renderer.shadowMap.enabled = true
     this.renderer.shadowMap.type = THREE.PCFSoftShadowMap
-    this.scene.fog = new THREE.Fog(0x000000, 50, 500)
+    this.scene.fog = new THREE.Fog(0x000000, 100, 500)
     this.controls.dampingFactor = 0.1
     this.controls.enableDamping = true
     this.controls.saveState()
@@ -104,7 +103,7 @@ export default class WebGLContent {
     })
     this.meshLambert.start(normalMap1)
     this.meshPhong.start(map1, normalMap1)
-    this.meshRipple.start(this.renderTarget.texture, normalMap3)
+    this.meshRipple.start(normalMap3)
     this.ground.start(map2, normalMap2)
     this.background.start(bgMap)
 
@@ -139,11 +138,6 @@ export default class WebGLContent {
       this.meshPhong.update()
       this.meshRipple.update(time)
     }
-    this.meshRipple.visible = false
-    this.renderer.setRenderTarget(this.renderTarget)
-    this.renderer.render(this.scene, this.camera)
-    this.meshRipple.visible = true
-    this.renderer.setRenderTarget(null)
     this.renderer.render(this.scene, this.camera)
     this.controls.update()
   }
@@ -151,9 +145,7 @@ export default class WebGLContent {
   resize() {
     this.resolution.set(window.innerWidth, window.innerHeight)
     this.camera.resize(this.resolution)
-    this.meshRipple.resize(this.resolution)
     this.renderer.setSize(this.resolution.x, this.resolution.y)
-    this.renderTarget.setSize(this.resolution.x, this.resolution.y)
   }
 
   playPause(bool) {
