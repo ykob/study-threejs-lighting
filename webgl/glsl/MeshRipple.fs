@@ -3,10 +3,14 @@
 precision highp float;
 
 uniform mat4 viewMatrix;
+
 uniform float time;
 uniform float shininess;
 uniform vec3 diffuse;
 uniform float opacity;
+uniform vec2 resolution;
+
+uniform sampler2D map;
 uniform sampler2D normalMap;
 uniform vec2 normalScale;
 
@@ -117,6 +121,11 @@ void main() {
   vec3 mapN = blendNormalRNM(mapN1, mapN2);
   mapN.xy *= normalScale;
   normal = normalize(vTBN * mapN);
+
+  // Map Fragment
+  vec2 uv = gl_FragCoord.xy / resolution;
+  vec4 texelColor = texture2D(map, uv);
+  diffuseColor *= texelColor;
 
   // Define geometry
   GeometricContext geometry;

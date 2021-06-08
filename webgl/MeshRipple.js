@@ -24,6 +24,9 @@ export default class MeshRipple extends THREE.Mesh {
           shininess: {
             value: 120,
           },
+          resolution: {
+            value: new THREE.Vector2(),
+          },
         },
       ]),
       vertexShader: vs,
@@ -31,8 +34,8 @@ export default class MeshRipple extends THREE.Mesh {
       lights: true,
       fog: true,
     })
-    material.uniforms.uvTransform.value.scale(SIZE, SIZE)
-    material.uniforms.diffuse.value.set(0x002255)
+    material.uniforms.uvTransform.value.scale(SIZE / 2, SIZE / 2)
+    material.uniforms.diffuse.value.set(0x0099ff)
 
     // Create Object3D
     super(geometry, material)
@@ -41,9 +44,10 @@ export default class MeshRipple extends THREE.Mesh {
     this.rotation.x = (Math.PI / 180) * -90
   }
 
-  start(normalMap) {
+  start(map, normalMap) {
     const { uniforms } = this.material
 
+    uniforms.map.value = map
     uniforms.normalMap.value = normalMap
   }
 
@@ -51,5 +55,11 @@ export default class MeshRipple extends THREE.Mesh {
     const { uniforms } = this.material
 
     uniforms.time.value += time
+  }
+
+  resize(resolution) {
+    const { uniforms } = this.material
+
+    uniforms.resolution.value.copy(resolution)
   }
 }
