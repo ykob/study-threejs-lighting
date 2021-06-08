@@ -37,9 +37,6 @@ struct IncidentLight {
   bool visible;
 };
 
-// Ambient Light
-uniform vec3 ambientLightColor;
-
 // Directional Lights
 struct DirectionalLight {
   vec3 direction;
@@ -114,11 +111,16 @@ varying float fogDepth;
 void main() {
   vec4 diffuseColor = vec4(diffuse, opacity);
 
-  // // Normal
-  vec4 mapN1 = texture2D(normalMap, vUv - time * vec2(0.01, -0.01));
-  vec4 mapN2 = texture2D(normalMap, vUv - time * vec2(0.01, -0.01));
-  vec4 mapN = mix(mapN1, mapN2, 0.5);
-  vec3 normal = normalize(vec3(mapN.r * 2.0 - 1.0, mapN.b, mapN.g * 2.0 - 1.0));
+  // Normal with Tangent Space
+  vec3 normal = normalize(vNormal);
+  vec3 tangent = normalize(vTangent);
+  vec3 bitangent = normalize(vBitangent);
+  mat3 vTBN = mat3(tangent, bitangent, normal);
+  vec3 mapN1 = texture2D(normalMap, vUv + time * vec2(0.01, -0.01)).xyz * 2.0 - 1.0;
+  vec3 mapN2 = texture2D(normalMap, vUv - time * vec2(0.01, -0.01)).xyz * 2.0 - 1.0;
+  vec3 mapN = blendNormalRNM(mapN1, mapN2);
+  mapN.xy *= normalScale;
+  normal = normalize(vTBN * mapN);
 
   // Define geometry
   GeometricContext geometry;
@@ -157,16 +159,22 @@ void main() {
   }
   #pragma unroll_loop_end
 
-  vec3 light = diffuse + specular + ambientLightColor;
+  vec3 light = diffuse + specular;
+
+  // Normal for reflect and refract.
+  vec4 mapNR1 = texture2D(normalMap, vUv + time * vec2(0.01, -0.01));
+  vec4 mapNR2 = texture2D(normalMap, vUv - time * vec2(0.01, -0.01));
+  vec4 mapNR = mix(mapNR1, mapNR2, 0.5);
+  vec3 normalR = normalize(vec3(mapNR.r * 2.0 - 1.0, mapNR.b, mapNR.g * 2.0 - 1.0));
 
   // calculate the fresnel term to blend reflection and refraction maps
   float reflectivity = 0.05;
-  float theta = max(dot(normalize(vToEye), normal), 0.0);
+  float theta = max(dot(normalize(vToEye), normalR), 0.0);
   float reflectance = reflectivity + (1.0 - reflectivity) * pow((1.0 - theta), 5.0);
   vec3 coord = vCoord.xyz / vCoord.w;
-  vec2 uv = coord.xy + coord.z * normal.xz * 0.15;
+  vec2 uv = coord.xy + coord.z * normalR.xz * 0.15;
   vec4 reflectColor = texture2D(tReflectionMap, vec2(1.0 - uv.x, uv.y));
-  vec4 refractColor = texture2D(tRefractionMap, uv) * 0.3;
+  vec4 refractColor = texture2D(tRefractionMap, uv) * 0.2;
 
   gl_FragColor = vec4(light, 1.0) + mix(refractColor, reflectColor, reflectance);
 
