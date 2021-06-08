@@ -111,15 +111,17 @@ varying float fogDepth;
 void main() {
   vec4 diffuseColor = vec4(diffuse, opacity);
 
+  // Normal Map
+  vec4 mapN1 = texture2D(normalMap, vUv + time * vec2(0.01, -0.01));
+  vec4 mapN2 = texture2D(normalMap, vUv - time * vec2(0.01, -0.01));
+  vec3 mapN = blendNormalRNM(mapN1.xyz * 2.0 - 1.0, mapN2.xyz * 2.0 - 1.0);
+  mapN.xy *= normalScale;
+
   // Normal with Tangent Space
   vec3 normal = normalize(vNormal);
   vec3 tangent = normalize(vTangent);
   vec3 bitangent = normalize(vBitangent);
   mat3 vTBN = mat3(tangent, bitangent, normal);
-  vec3 mapN1 = texture2D(normalMap, vUv + time * vec2(0.01, -0.01)).xyz * 2.0 - 1.0;
-  vec3 mapN2 = texture2D(normalMap, vUv - time * vec2(0.01, -0.01)).xyz * 2.0 - 1.0;
-  vec3 mapN = blendNormalRNM(mapN1, mapN2);
-  mapN.xy *= normalScale;
   normal = normalize(vTBN * mapN);
 
   // Define geometry
@@ -162,9 +164,7 @@ void main() {
   vec3 light = diffuse + specular;
 
   // Normal for reflect and refract.
-  vec4 mapNR1 = texture2D(normalMap, vUv + time * vec2(0.01, -0.01));
-  vec4 mapNR2 = texture2D(normalMap, vUv - time * vec2(0.01, -0.01));
-  vec4 mapNR = mix(mapNR1, mapNR2, 0.5);
+  vec4 mapNR = mix(mapN1, mapN2, 0.1);
   vec3 normalR = normalize(vec3(mapNR.r * 2.0 - 1.0, mapNR.b, mapNR.g * 2.0 - 1.0));
 
   // calculate the fresnel term to blend reflection and refraction maps
