@@ -40,13 +40,13 @@ export default class WebGLContent {
     this.dirLight1.position.set(-20, 20, 20)
     this.dirLight2 = new DirectionalLight(0x7777ff, 0.3)
     this.dirLight2.position.set(20, 20, 20)
-    this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
-    this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
     this.pointLight1 = new PointLight(0xff3333, 0.5, 160)
     this.pointLight1.position.set(-50, 20, 0)
-    this.pointLightHelper1 = new THREE.PointLightHelper(this.pointLight1, 5)
     this.pointLight2 = new PointLight(0x3333ff, 0.5, 160)
     this.pointLight2.position.set(50, 20, 0)
+    this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
+    this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
+    this.pointLightHelper1 = new THREE.PointLightHelper(this.pointLight1, 5)
     this.pointLightHelper2 = new THREE.PointLightHelper(this.pointLight2, 5)
     this.ground = new Ground()
     this.background = new Background()
@@ -125,6 +125,10 @@ export default class WebGLContent {
     this.meshLambert.visible = false
     this.meshPhong.visible = true
     this.meshRipple.visible = true
+    this.dirLightHelper1.visible = false
+    this.dirLightHelper2.visible = false
+    this.pointLightHelper1.visible = false
+    this.pointLightHelper2.visible = false
 
     this.resize()
     this.clock.start()
