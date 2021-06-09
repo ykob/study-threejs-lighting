@@ -1,5 +1,6 @@
 # study-threejs-lighting
-It's a study record of 3D graphic lighting with the shaders that I created by quoting from three.js.
+It's a study record of 3D graphic lighting with the shaders that I created by quoting from three.js.  
+https://ykob.github.io/study-threejs-lighting/
 
 ## Build Setup
 
