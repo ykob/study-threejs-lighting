@@ -2,12 +2,12 @@ import * as THREE from 'three'
 import { Reflector } from 'three/examples/jsm/objects/Reflector.js'
 import { Refractor } from 'three/examples/jsm/objects/Refractor.js'
 
-import vs from './glsl/MeshRipple.vs'
-import fs from './glsl/MeshRipple.fs'
+import vs from './glsl/Water.vs'
+import fs from './glsl/Water.fs'
 
 const SIZE = 6
 
-export default class MeshRipple extends THREE.Mesh {
+export default class Water extends THREE.Mesh {
   constructor() {
     // Define Geometry
     const geometry = new THREE.PlaneGeometry(SIZE * 500, SIZE * 500)

@@ -4,7 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import Camera from './Camera'
 import MeshLambert from './MeshLambert'
 import MeshPhong from './MeshPhong'
-import MeshRipple from './MeshRipple'
+import Water from './Water'
 import AmbientLight from './AmbientLight'
 import DirectionalLight from './DirectionalLight'
 import PointLight from './PointLight'
@@ -34,7 +34,7 @@ export default class WebGLContent {
     // meshes and lights
     this.meshLambert = new MeshLambert()
     this.meshPhong = new MeshPhong()
-    this.meshRipple = new MeshRipple()
+    this.water = new Water()
     this.ambLight = new AmbientLight()
     this.dirLight1 = new DirectionalLight(0xff7777, 0.3)
     this.dirLight1.position.set(-20, 20, 20)
@@ -103,13 +103,13 @@ export default class WebGLContent {
     })
     this.meshLambert.start(normalMap1)
     this.meshPhong.start(map1, normalMap1)
-    this.meshRipple.start(normalMap3)
+    this.water.start(normalMap3)
     this.ground.start(map2, normalMap2)
     this.background.start(bgMap)
 
     this.scene.add(this.meshLambert)
     this.scene.add(this.meshPhong)
-    this.scene.add(this.meshRipple)
+    this.scene.add(this.water)
     this.scene.add(this.ambLight)
     this.scene.add(this.dirLight1)
     this.scene.add(this.dirLightHelper1)
@@ -124,7 +124,7 @@ export default class WebGLContent {
 
     this.meshLambert.visible = false
     this.meshPhong.visible = true
-    this.meshRipple.visible = true
+    this.water.visible = true
     this.dirLightHelper1.visible = false
     this.dirLightHelper2.visible = false
     this.pointLightHelper1.visible = false
@@ -140,7 +140,7 @@ export default class WebGLContent {
     if (this.isPlaying) {
       this.meshLambert.update()
       this.meshPhong.update()
-      this.meshRipple.update(time)
+      this.water.update(time)
     }
     this.renderer.render(this.scene, this.camera)
     this.controls.update()
