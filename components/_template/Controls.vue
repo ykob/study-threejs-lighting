@@ -20,6 +20,13 @@
       @click = 'resetControls'
       )
       IconRestore
+    Button(
+      width = '36px'
+      height = '36px'
+      radius = '50%'
+      @click = 'toggleHelper'
+      )
+      IconCubeOutline
   .buttons
     Button(
       width = '36px'
@@ -39,6 +46,9 @@ export default {
   methods: {
     resetControls() {
       this.$webgl.resetControls()
+    },
+    toggleHelper() {
+      this.$webgl.toggleHelper()
     },
   },
 }

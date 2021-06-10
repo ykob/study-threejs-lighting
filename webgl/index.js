@@ -159,4 +159,11 @@ export default class WebGLContent {
   resetControls() {
     this.controls.reset()
   }
+
+  toggleHelper() {
+    this.dirLightHelper1.visible = !this.dirLightHelper1.visible
+    this.dirLightHelper2.visible = !this.dirLightHelper2.visible
+    this.pointLightHelper1.visible = !this.pointLightHelper1.visible
+    this.pointLightHelper2.visible = !this.pointLightHelper2.visible
+  }
 }
