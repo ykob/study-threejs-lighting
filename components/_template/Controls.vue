@@ -26,7 +26,7 @@
       radius = '50%'
       @click = 'toggleHelper'
       )
-      IconCubeOutline
+      IconHelpRhombusOutline 
   .buttons
     Button(
       width = '36px'
