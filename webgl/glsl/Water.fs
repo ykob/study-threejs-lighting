@@ -27,9 +27,9 @@ varying vec3 vBitangent;
 #define RECIPROCAL_PI 0.3183098861837907
 
 struct GeometricContext {
-	vec3 position;
-	vec3 normal;
-	vec3 viewDir;
+  vec3 position;
+  vec3 normal;
+  vec3 viewDir;
 };
 struct IncidentLight {
   vec3 color;
@@ -97,8 +97,8 @@ vec3 calcSpecular(
 
 // Blending Normal Map
 vec3 blendNormalRNM(vec3 n1, vec3 n2) {
-	n1 += vec3(0.0, 0.0, 1.0);
-	n2 *= vec3(-1.0, -1.0, 1.0);
+  n1 += vec3(0.0, 0.0, 1.0);
+  n2 *= vec3(-1.0, -1.0, 1.0);
   return n1 * dot(n1, n2) / n1.z - n2;
 }
 
