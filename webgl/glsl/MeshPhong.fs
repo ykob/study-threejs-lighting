@@ -15,8 +15,6 @@ uniform vec2 normalScale;
 varying vec3 vViewPosition;
 varying vec2 vUv;
 varying vec3 vNormal;
-varying vec3 vTangent;
-varying vec3 vBitangent;
 
 // Common
 #define RECIPROCAL_PI 0.3183098861837907
@@ -93,6 +91,30 @@ vec3 calcSpecular(
   return (F * (G * D));
 }
 
+// Perturb Normal
+// https://github.com/glslify/glsl-perturb-normal
+mat3 cotangent(vec3 N, vec3 p, vec2 uv) {
+  // get edge vectors of the pixel triangle
+  vec3 dp1 = dFdx(p);
+  vec3 dp2 = dFdy(p);
+  vec2 duv1 = dFdx(uv);
+  vec2 duv2 = dFdy(uv);
+
+  // solve the linear system
+  vec3 dp2perp = cross(dp2, N);
+  vec3 dp1perp = cross(N, dp1);
+  vec3 T = dp2perp * duv1.x + dp1perp * duv2.x;
+  vec3 B = dp2perp * duv1.y + dp1perp * duv2.y;
+
+  // construct a scale-invariant frame 
+  float invmax = 1.0 / sqrt(max(dot(T,T), dot(B,B)));
+  return mat3(normalize(T * invmax), normalize(B * invmax), N);
+}
+vec3 perturb(vec3 map, vec3 N, vec3 V, vec2 texcoord) {
+  mat3 TBN = cotangent(N, -V, texcoord);
+  return normalize(TBN * map);
+}
+
 // Fog
 uniform vec3 fogColor;
 uniform float fogNear;
@@ -108,13 +130,10 @@ void main() {
 
   // Normal with Tangent Space
   vec3 normal = normalize(vNormal);
-  vec3 tangent = normalize(vTangent);
-  vec3 bitangent = normalize(vBitangent);
-  mat3 vTBN = mat3(tangent, bitangent, normal);
   vec3 mapN = texture2D(normalMap, vUv).xyz * 2.0 - 1.0;
   mapN.xy *= normalScale;
-  normal = normalize(vTBN * mapN);
-  
+  normal = perturb(mapN, normal, normalize(vViewPosition), vUv);
+
   // Define geometry
   GeometricContext geometry;
   geometry.position = -vViewPosition;
