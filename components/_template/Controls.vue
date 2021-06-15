@@ -28,12 +28,39 @@
       )
       IconHelpRhombusOutline 
   .buttons
-    Button(
-      width = '36px'
-      height = '36px'
-      radius = '50%'
-      )
-      IconHelp
+    Menu
+      template(
+        v-slot:activator = '{ on }'
+        )
+        Button(
+          width = '36px'
+          height = '36px'
+          radius = '50%'
+          @click = 'on'
+          )
+          IconHelp
+      div
+        div
+          |Assets
+        ul
+          li
+            a(
+              href = 'https://www.cgtrader.com/3d-model-collections/ocean-8k'
+              target = '_blank'
+              )
+              |Water Surface Normal Map
+          li
+            a(
+              href = 'https://www.cgtrader.com/3d-models/textures/natural/s-ea3e180f-bfed-4c62-aaa1-4045e48d8d59'
+              target = '_blank'
+              )
+              |Object Normal Maps
+          li
+            a(
+              href = 'https://www.cgtrader.com/3d-models/textures/miscellaneous/nebula-spherical-maps-and-skyboxes-8192x4096-px'
+              target = '_blank'
+              )
+              |Nebula Spherical Map
 </template>
 
 <script>

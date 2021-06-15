@@ -4,7 +4,6 @@ div
   .page
     nuxt
   Controls
-  Modal
 </template>
 
 <script>
