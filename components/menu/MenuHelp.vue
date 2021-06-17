@@ -9,18 +9,27 @@
         target = '_blank'
         )
         |Water Surface Normal Map
+        IconOpenInNew(
+          :size = '16'
+          )
     li
       a(
         href = 'https://www.cgtrader.com/3d-models/textures/natural/s-ea3e180f-bfed-4c62-aaa1-4045e48d8d59'
         target = '_blank'
         )
         |Object Normal Maps
+        IconOpenInNew(
+          :size = '16'
+          )
     li
       a(
         href = 'https://www.cgtrader.com/3d-models/textures/miscellaneous/nebula-spherical-maps-and-skyboxes-8192x4096-px'
         target = '_blank'
         )
         |Nebula Spherical Map
+        IconOpenInNew(
+          :size = '16'
+          )
 </template>
 
 <script>
@@ -50,6 +59,13 @@ export default {}
   ul {
     margin: 0;
     padding-left: 20px;
+  }
+  li {
+    margin-top: 4px;
+  }
+  svg {
+    vertical-align: middle;
+    margin-left: 4px;
   }
 }
 </style>
