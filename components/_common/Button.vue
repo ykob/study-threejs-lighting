@@ -36,6 +36,10 @@ export default {
       type: String,
       default: '3px',
     },
+    active: {
+      type: Boolean,
+      default: false,
+    },
   },
   computed: {
     styles() {
@@ -46,7 +50,12 @@ export default {
       }
     },
     classnames() {
-      return [`${this.role}`]
+      return [
+        `${this.role}`,
+        {
+          'is-active': this.active,
+        },
+      ]
     },
   },
 }
@@ -80,6 +89,10 @@ export default {
       background-color: #333;
     }
     &:active {
+      background-color: #fb0;
+    }
+    &.is-active {
+      color: #000;
       background-color: #fb0;
     }
   }

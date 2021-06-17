@@ -30,12 +30,13 @@
   .buttons
     Menu
       template(
-        v-slot:activator = '{ on }'
+        v-slot:activator = '{ on, isShown }'
         )
         Button(
           width = '36px'
           height = '36px'
           radius = '50%'
+          :active = 'isShown'
           @click = 'on'
           )
           IconHelp

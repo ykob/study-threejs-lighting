@@ -4,6 +4,7 @@
     slot(
       name = 'activator'
       :on = 'toggle'
+      :isShown = 'isShown'
       )
   transition
     .menu__card(
