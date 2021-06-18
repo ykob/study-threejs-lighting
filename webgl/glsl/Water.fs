@@ -36,32 +36,36 @@ struct IncidentLight {
 };
 
 // Directional Lights
-struct DirectionalLight {
-  vec3 direction;
-  vec3 color;
-};
-uniform DirectionalLight directionalLights[NUM_DIR_LIGHTS];
+#if NUM_DIR_LIGHTS > 0
+  struct DirectionalLight {
+    vec3 direction;
+    vec3 color;
+  };
+  uniform DirectionalLight directionalLights[NUM_DIR_LIGHTS];
+#endif
 
 // Point Lights
-struct PointLight {
-  vec3 position;
-  vec3 color;
-  float distance;
-  float decay;
-};
-uniform PointLight pointLights[NUM_POINT_LIGHTS];
+#if NUM_POINT_LIGHTS > 0
+  struct PointLight {
+    vec3 position;
+    vec3 color;
+    float distance;
+    float decay;
+  };
+  uniform PointLight pointLights[NUM_POINT_LIGHTS];
 
-void getPointDirectLightIrradiance(
-  const in PointLight pointLight,
-  const in GeometricContext geometry,
-  out IncidentLight directLight
-) {
-  vec3 lVector = pointLight.position - geometry.position;
-  directLight.direction = normalize(lVector);
-  float lightDistance = length(lVector);
-  directLight.color = pointLight.color;
-  directLight.color *= pow(clamp(-lightDistance / pointLight.distance + 1.0, 0.0, 1.0), pointLight.decay);
-}
+  void getPointDirectLightIrradiance(
+    const in PointLight pointLight,
+    const in GeometricContext geometry,
+    out IncidentLight directLight
+  ) {
+    vec3 lVector = pointLight.position - geometry.position;
+    directLight.direction = normalize(lVector);
+    float lightDistance = length(lVector);
+    directLight.color = pointLight.color;
+    directLight.color *= pow(clamp(-lightDistance / pointLight.distance + 1.0, 0.0, 1.0), pointLight.decay);
+  }
+#endif
 
 // Diffuse
 vec3 calcDiffuse(
@@ -133,31 +137,35 @@ void main() {
   vec3 irradiance;
   IncidentLight directLight;
 
-  // Point Light
-  #pragma unroll_loop_start
-  for (int i = 0; i < NUM_POINT_LIGHTS; i++) {
-    getPointDirectLightIrradiance(pointLights[i], geometry, directLight);
-
-    // diffuse
-    irradiance = calcDiffuse(geometry, directLight);
-    diffuse += irradiance * diffuseColor.rgb;
-
-    // specular
-    specular += irradiance * calcSpecular(geometry, directLight);
-  }
-  #pragma unroll_loop_end
-
   // Directional Light
-  #pragma unroll_loop_start
-  for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
-    directLight.direction = directionalLights[i].direction;
-    directLight.color = directionalLights[i].color;
+  #if NUM_DIR_LIGHTS > 0
+    #pragma unroll_loop_start
+    for (int i = 0; i < NUM_DIR_LIGHTS; i++) {
+      directLight.direction = directionalLights[i].direction;
+      directLight.color = directionalLights[i].color;
 
-    // diffuse
-    irradiance = calcDiffuse(geometry, directLight);
-    diffuse += irradiance * diffuseColor.rgb;
-  }
-  #pragma unroll_loop_end
+      // diffuse
+      irradiance = calcDiffuse(geometry, directLight);
+      diffuse += irradiance * diffuseColor.rgb;
+    }
+    #pragma unroll_loop_end
+  #endif
+
+  // Point Light
+  #if NUM_POINT_LIGHTS > 0
+    #pragma unroll_loop_start
+    for (int i = 0; i < NUM_POINT_LIGHTS; i++) {
+      getPointDirectLightIrradiance(pointLights[i], geometry, directLight);
+
+      // diffuse
+      irradiance = calcDiffuse(geometry, directLight);
+      diffuse += irradiance * diffuseColor.rgb;
+
+      // specular
+      specular += irradiance * calcSpecular(geometry, directLight);
+    }
+    #pragma unroll_loop_end
+  #endif
 
   vec3 light = diffuse + specular;
 
