@@ -26,6 +26,9 @@ export default class Water extends THREE.Mesh {
           shininess: {
             value: 120,
           },
+          reflectivity: {
+            value: 0.05,
+          },
           textureMatrix: {
             value: new THREE.Matrix4(),
           },

@@ -4,6 +4,7 @@ uniform mat4 viewMatrix;
 
 uniform float time;
 uniform float shininess;
+uniform float reflectivity;
 uniform mat4 textureMatrix;
 uniform sampler2D tReflectionMap;
 uniform sampler2D tRefractionMap;
@@ -174,7 +175,6 @@ void main() {
   vec3 normalR = normalize(vec3(mapNR.r * 2.0 - 1.0, mapNR.b, mapNR.g * 2.0 - 1.0));
 
   // calculate the fresnel term to blend reflection and refraction maps
-  float reflectivity = 0.05;
   float theta = max(dot(normalize(vToEye), normalR), 0.0);
   float reflectance = reflectivity + (1.0 - reflectivity) * pow((1.0 - theta), 5.0);
   vec3 coord = vCoord.xyz / vCoord.w;
