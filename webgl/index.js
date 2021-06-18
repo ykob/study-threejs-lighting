@@ -67,6 +67,14 @@ export default class WebGLContent {
   }
 
   async start() {
+    const imgs = [
+      require('@/assets/img/Alunar_Cliff_basecolor.png'),
+      require('@/assets/img/Alunar_Ground_basecolor.jpg'),
+      require('@/assets/img/Alunar_Cliff_normal.jpg'),
+      require('@/assets/img/Alunar_Ground_normal.jpg'),
+      require('@/assets/img/Ocean-4-Normal.jpg'),
+      require('@/assets/img/004_nebula_red.jpg'),
+    ]
     let map1
     let map2
     let normalMap1
@@ -75,18 +83,9 @@ export default class WebGLContent {
     let bgMap
 
     await Promise.all([
-      this.texLoader.loadAsync(
-        require('@/assets/img/Alunar_Cliff_basecolor.png')
-      ),
-      this.texLoader.loadAsync(
-        require('@/assets/img/Alunar_Ground_basecolor.jpg')
-      ),
-      this.texLoader.loadAsync(require('@/assets/img/Alunar_Cliff_normal.jpg')),
-      this.texLoader.loadAsync(
-        require('@/assets/img/Alunar_Ground_normal.jpg')
-      ),
-      this.texLoader.loadAsync(require('@/assets/img/Ocean-4-Normal.jpg')),
-      this.texLoader.loadAsync(require('@/assets/img/004_nebula_red.jpg')),
+      ...imgs.map((o) => {
+        return this.texLoader.loadAsync(o)
+      }),
     ]).then((response) => {
       map1 = response[0]
       map1.wrapT = map1.wrapS = THREE.RepeatWrapping
