@@ -44,12 +44,12 @@ export default class WebGLContent {
     this.pointLight1.position.set(-50, 20, 0)
     this.pointLight2 = new PointLight(0x3333ff, 0.5, 160)
     this.pointLight2.position.set(50, 20, 0)
+    this.ground = new Ground()
+    this.background = new Background()
     this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
     this.dirLightHelper2 = new THREE.DirectionalLightHelper(this.dirLight2, 5)
     this.pointLightHelper1 = new THREE.PointLightHelper(this.pointLight1, 5)
     this.pointLightHelper2 = new THREE.PointLightHelper(this.pointLight2, 5)
-    this.ground = new Ground()
-    this.background = new Background()
 
     // Other than three.js
     this.isPlaying = true
@@ -111,15 +111,15 @@ export default class WebGLContent {
     this.scene.add(this.water)
     this.scene.add(this.ambLight)
     this.scene.add(this.dirLight1)
-    this.scene.add(this.dirLightHelper1)
     this.scene.add(this.dirLight2)
-    this.scene.add(this.dirLightHelper2)
     this.scene.add(this.pointLight1)
-    this.scene.add(this.pointLightHelper1)
     this.scene.add(this.pointLight2)
-    this.scene.add(this.pointLightHelper2)
     this.scene.add(this.ground)
     this.scene.add(this.background)
+    this.scene.add(this.dirLightHelper1)
+    this.scene.add(this.dirLightHelper2)
+    this.scene.add(this.pointLightHelper1)
+    this.scene.add(this.pointLightHelper2)
 
     this.meshLambert.visible = false
     this.meshPhong.visible = true
