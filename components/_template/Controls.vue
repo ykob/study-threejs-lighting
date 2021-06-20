@@ -24,6 +24,7 @@
       width = '36px'
       height = '36px'
       radius = '50%'
+      :active = 'isShownHelper'
       @click = 'toggleHelper'
       )
       IconHelpRhombusOutline 
@@ -45,6 +46,9 @@
 
 <script>
 export default {
+  data: () => ({
+    isShownHelper: false,
+  }),
   computed: {
     isPlaying() {
       return this.$store.state.isPlaying
@@ -55,6 +59,7 @@ export default {
       this.$webgl.resetControls()
     },
     toggleHelper() {
+      this.isShownHelper = !this.isShownHelper
       this.$webgl.toggleHelper()
     },
   },
