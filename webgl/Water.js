@@ -5,12 +5,10 @@ import { Refractor } from 'three/examples/jsm/objects/Refractor.js'
 import vs from './glsl/Water.vs'
 import fs from './glsl/Water.fs'
 
-const SIZE = 6
-
 export default class Water extends THREE.Mesh {
   constructor() {
     // Define Geometry
-    const geometry = new THREE.PlaneGeometry(SIZE * 500, SIZE * 500)
+    const geometry = new THREE.PlaneGeometry(1000, 1000)
     geometry.computeTangents()
 
     const material = new THREE.RawShaderMaterial({
@@ -45,8 +43,8 @@ export default class Water extends THREE.Mesh {
       lights: true,
       fog: true,
     })
-    material.uniforms.uvTransform.value.scale(SIZE, SIZE)
-    material.uniforms.diffuse.value.set(0x220022)
+    material.uniforms.uvTransform.value.scale(5, 5)
+    material.uniforms.diffuse.value.set(0x440044)
 
     // Create Object3D
     super(geometry, material)
