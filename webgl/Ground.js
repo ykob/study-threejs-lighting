@@ -3,17 +3,15 @@ import * as THREE from 'three'
 import vs from './glsl/MeshPhong.vs'
 import fs from './glsl/MeshPhong.fs'
 
-const SIZE = 30
-
 export default class Ground extends THREE.Mesh {
   constructor() {
     // Define Geometry
-    const geometry = new THREE.PlaneGeometry(SIZE * 100, SIZE * 100)
+    const geometry = new THREE.PlaneGeometry(1000, 1000)
     geometry.computeTangents()
 
     // Define Material
     const uvTransform = new THREE.Matrix3()
-    uvTransform.scale(SIZE * 2, SIZE * 2)
+    uvTransform.scale(10, 10)
 
     // Define Material
     const material = new THREE.RawShaderMaterial({
@@ -43,7 +41,7 @@ export default class Ground extends THREE.Mesh {
     // Create Object3D
     super(geometry, material)
     this.name = 'Ground'
-    this.position.y = -30
+    this.position.y = -40
     this.rotation.x = (Math.PI / 180) * -90
   }
 
