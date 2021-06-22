@@ -89,11 +89,11 @@ export default {
       background-color: #333;
     }
     &:active {
-      background-color: #fb0;
+      background-color: #f36;
     }
     &.is-active {
       color: #000;
-      background-color: #fb0;
+      background-color: #f36;
     }
   }
   &.transparent {
@@ -106,7 +106,7 @@ export default {
       background-color: #fff;
     }
     &:active {
-      background-color: #fb0;
+      background-color: #f36;
     }
   }
 }
