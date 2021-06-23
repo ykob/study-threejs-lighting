@@ -48,6 +48,10 @@ export default {
       path: '@/components/icon/',
       prefix: 'Icon',
     },
+    {
+      path: '@/components/menu/',
+      prefix: 'Menu',
+    },
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
