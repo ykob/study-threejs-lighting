@@ -12,6 +12,8 @@ uniform mat3 uvTransform;
 varying vec3 vViewPosition;
 varying vec2 vUv;
 varying vec3 vNormal;
+
+// Fog
 varying float fogDepth;
 
 void main(void) {
@@ -24,6 +26,8 @@ void main(void) {
   vViewPosition = -mvPosition.xyz;
   vUv = (uvTransform * vec3(uv, 1.0)).xy;
   vNormal = normalize(transformedNormal);
+
+  // Fog
   fogDepth = -mvPosition.z;
 
   gl_Position = projectionMatrix * mvPosition;

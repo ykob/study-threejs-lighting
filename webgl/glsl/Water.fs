@@ -184,6 +184,7 @@ void main() {
 
   gl_FragColor = vec4(light, 1.0) + mix(refractColor, reflectColor, reflectance);
 
+  // Fog
   float fogFactor = smoothstep(fogNear, fogFar, fogDepth);
 
   gl_FragColor.rgb = mix(gl_FragColor.rgb, fogColor, fogFactor);

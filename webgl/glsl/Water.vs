@@ -20,6 +20,8 @@ varying vec4 vCoord;
 varying vec3 vNormal;
 varying vec3 vTangent;
 varying vec3 vBitangent;
+
+// Fog
 varying float fogDepth;
 
 void main(void) {
@@ -38,6 +40,8 @@ void main(void) {
   vNormal = normalize(transformedNormal);
   vTangent = normalize(transformedTangent);
   vBitangent = normalize(cross(vNormal, vTangent) * tangent.w);
+
+  // Fog
   fogDepth = -mvPosition.z;
 
   gl_Position = projectionMatrix * mvPosition;
