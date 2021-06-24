@@ -55,6 +55,9 @@ export default {}
   }
   a {
     color: #fff;
+    &:hover {
+      text-decoration: none;
+    }
   }
   ul {
     margin: 0;
