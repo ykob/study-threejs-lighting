@@ -8,7 +8,7 @@ https://ykob.github.io/study-threejs-lighting/
 # install dependencies
 $ yarn install
 
-# serve with hot reload at localhost:3000
+# serve with hot reload at localhost:8080
 $ yarn dev
 
 # build for production and launch server
@@ -17,6 +17,9 @@ $ yarn start
 
 # generate static project
 $ yarn generate
+
+# deploy to GitHub Pages
+$ yarn deploy
 ```
 
 ## Reference sources 
