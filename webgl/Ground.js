@@ -10,10 +10,6 @@ export default class Ground extends THREE.Mesh {
     geometry.computeTangents()
 
     // Define Material
-    const uvTransform = new THREE.Matrix3()
-    uvTransform.scale(10, 10)
-
-    // Define Material
     const material = new THREE.RawShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([
         THREE.UniformsLib.common,
@@ -27,9 +23,6 @@ export default class Ground extends THREE.Mesh {
           shininess: {
             value: 30,
           },
-          uvTransform: {
-            value: uvTransform,
-          },
         },
       ]),
       vertexShader: vs,
@@ -37,6 +30,7 @@ export default class Ground extends THREE.Mesh {
       lights: true,
       fog: true,
     })
+    material.uniforms.uvTransform.value.scale(10, 10)
 
     // Create Object3D
     super(geometry, material)
