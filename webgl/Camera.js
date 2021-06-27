@@ -7,7 +7,6 @@ export default class Camera extends THREE.PerspectiveCamera {
     this.far = 1000
     this.setFocalLength(50)
     this.position.set(0, 0, 150)
-    this.lookAt(0, 15, 0)
   }
 
   resize(resolution) {

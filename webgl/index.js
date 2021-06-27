@@ -61,6 +61,7 @@ export default class WebGLContent {
     this.scene.fog = new THREE.Fog(0x000000, 100, 500)
     this.controls.dampingFactor = 0.1
     this.controls.enableDamping = true
+    this.controls.target.set(0, 0, 0)
     this.controls.saveState()
 
     document.body.appendChild(canvas)
