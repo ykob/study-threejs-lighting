@@ -8,6 +8,7 @@ import Water from './Water'
 import AmbientLight from './AmbientLight'
 import DirectionalLight from './DirectionalLight'
 import PointLight from './PointLight'
+import InstanceMeshPhong from './InstanceMeshPhong'
 import Ground from './Ground'
 import Background from './Background'
 
@@ -44,6 +45,7 @@ export default class WebGLContent {
     this.pointLight1.position.set(-50, 20, 0)
     this.pointLight2 = new PointLight(0x3333ff, 0.5, 160)
     this.pointLight2.position.set(50, 20, 0)
+    this.instanceMeshPhong = new InstanceMeshPhong()
     this.ground = new Ground()
     this.background = new Background()
     this.dirLightHelper1 = new THREE.DirectionalLightHelper(this.dirLight1, 5)
@@ -104,6 +106,7 @@ export default class WebGLContent {
     this.meshLambert.start(normalMap1)
     this.meshPhong.start(map1, normalMap1)
     this.water.start(normalMap3)
+    this.instanceMeshPhong.start(map1, normalMap1)
     this.ground.start(map2, normalMap2)
     this.background.start(bgMap)
 
@@ -115,6 +118,7 @@ export default class WebGLContent {
     this.scene.add(this.dirLight2)
     this.scene.add(this.pointLight1)
     this.scene.add(this.pointLight2)
+    this.scene.add(this.instanceMeshPhong)
     this.scene.add(this.ground)
     this.scene.add(this.background)
     this.scene.add(this.dirLightHelper1)
