@@ -134,7 +134,6 @@ export default class WebGLContent {
     this.pointLightHelper1.visible = false
     this.pointLightHelper2.visible = false
 
-    this.resize()
     this.clock.start()
   }
 
