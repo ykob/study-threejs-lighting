@@ -36,6 +36,21 @@ export default class Water extends THREE.Mesh {
           tRefractionMap: {
             value: null,
           },
+          resolution: {
+            value: new THREE.Vector2(),
+          },
+          tDepth1: {
+            value: null,
+          },
+          tDepth2: {
+            value: null,
+          },
+          cameraNear: {
+            value: 0.1,
+          },
+          cameraFar: {
+            value: 1000,
+          },
         },
       ]),
       vertexShader: vs,
@@ -57,6 +72,7 @@ export default class Water extends THREE.Mesh {
     const clipBias = 0
     const encoding = THREE.LinearEncoding
 
+    // Define Reflector and Refractor
     this.reflector = new Reflector(geometry, {
       textureWidth,
       textureHeight,
@@ -75,10 +91,12 @@ export default class Water extends THREE.Mesh {
     material.uniforms.tRefractionMap.value = this.refractor.getRenderTarget().texture
   }
 
-  start(normalMap) {
+  start(normalMap, tDepth1, tDepth2) {
     const { uniforms } = this.material
 
     uniforms.normalMap.value = normalMap
+    uniforms.tDepth1.value = tDepth1
+    uniforms.tDepth2.value = tDepth2
   }
 
   onBeforeRender(renderer, scene, camera) {
@@ -106,5 +124,11 @@ export default class Water extends THREE.Mesh {
     const { uniforms } = this.material
 
     uniforms.time.value += time
+  }
+
+  resize(resolution) {
+    const { uniforms } = this.material
+
+    uniforms.resolution.value.copy(resolution)
   }
 }

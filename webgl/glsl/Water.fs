@@ -8,6 +8,11 @@ uniform float reflectivity;
 uniform mat4 textureMatrix;
 uniform sampler2D tReflectionMap;
 uniform sampler2D tRefractionMap;
+uniform vec2 resolution;
+uniform sampler2D tDepth1;
+uniform sampler2D tDepth2;
+uniform float cameraNear;
+uniform float cameraFar;
 
 uniform vec3 diffuse;
 uniform float opacity;
@@ -111,6 +116,19 @@ uniform float fogNear;
 uniform float fogFar;
 varying float fogDepth;
 
+// Depth
+float viewZToOrthographicDepth(const in float viewZ, const in float near, const in float far) {
+  return (viewZ + near) / (near - far);
+}
+float perspectiveDepthToViewZ(const in float invClipZ, const in float near, const in float far) {
+  return (near * far) / ((far - near) * invClipZ - far);
+}
+float readDepth(sampler2D depthSampler, vec2 coord) {
+  float fragCoordZ = texture2D(depthSampler, coord).x;
+  float viewZ = perspectiveDepthToViewZ(fragCoordZ, cameraNear, cameraFar);
+  return viewZToOrthographicDepth(viewZ, cameraNear, cameraFar);
+}
+
 void main() {
   vec4 diffuseColor = vec4(diffuse, opacity);
 
@@ -183,6 +201,13 @@ void main() {
   vec4 refractColor = texture2D(tRefractionMap, uv) * 0.2;
 
   gl_FragColor = vec4(light, 1.0) + mix(refractColor, reflectColor, reflectance);
+
+  // Depth
+  float depth1 = readDepth(tDepth1, gl_FragCoord.xy / resolution);
+  float depth2 = readDepth(tDepth2, gl_FragCoord.xy / resolution);
+
+  gl_FragColor.rgb = vec3(depth1);
+  gl_FragColor.a = 1.0;
 
   // Fog
   float fogFactor = smoothstep(fogNear, fogFar, fogDepth);

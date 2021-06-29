@@ -53,6 +53,17 @@ export default class WebGLContent {
     this.pointLightHelper1 = new THREE.PointLightHelper(this.pointLight1, 5)
     this.pointLightHelper2 = new THREE.PointLightHelper(this.pointLight2, 5)
 
+    // render targets
+    this.target1 = new THREE.WebGLRenderTarget()
+    this.target2 = new THREE.WebGLRenderTarget()
+    this.target1.depthBuffer = this.target2.depthBuffer = true
+    this.target1.depthTexture = new THREE.DepthTexture()
+    this.target2.depthTexture = new THREE.DepthTexture()
+    this.target1.depthTexture.format = this.target2.depthTexture.format =
+      THREE.DepthFormat
+    this.target1.depthTexture.type = this.target2.depthTexture.type =
+      THREE.UnsignedIntType
+
     // Other than three.js
     this.isPlaying = true
 
@@ -105,7 +116,11 @@ export default class WebGLContent {
     })
     this.meshLambert.start(normalMap1)
     this.meshPhong.start(map1, normalMap1)
-    this.water.start(normalMap3)
+    this.water.start(
+      normalMap3,
+      this.target1.depthTexture,
+      this.target2.depthTexture
+    )
     this.instanceMeshPhong.start(map1, normalMap1)
     this.ground.start(map2, normalMap2)
     this.background.start(bgMap)
@@ -143,8 +158,15 @@ export default class WebGLContent {
     if (this.isPlaying) {
       this.meshLambert.update()
       this.meshPhong.update()
-      this.water.update(time)
+      this.water.update(time, this.renderer, this.scene, this.camera)
     }
+    this.water.visible = false
+    this.renderer.setRenderTarget(this.target1)
+    this.renderer.render(this.scene, this.camera)
+    this.renderer.setRenderTarget(this.target2)
+    this.renderer.render(this.scene, this.camera)
+    this.water.visible = true
+    this.renderer.setRenderTarget(null)
     this.renderer.render(this.scene, this.camera)
     this.controls.update()
   }
@@ -152,6 +174,9 @@ export default class WebGLContent {
   resize() {
     this.resolution.set(window.innerWidth, window.innerHeight)
     this.camera.resize(this.resolution)
+    this.water.resize(this.resolution)
+    this.target1.setSize(this.resolution.x, this.resolution.y)
+    this.target2.setSize(this.resolution.x, this.resolution.y)
     this.renderer.setSize(this.resolution.x, this.resolution.y)
   }
 
