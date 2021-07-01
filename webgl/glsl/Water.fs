@@ -201,9 +201,9 @@ void main() {
   vec4 refractColor = texture2D(tRefractionMap, uv) * 0.2;
 
   // Depth for water's edge
-  float depth1 = readDepth(tDepth1, gl_FragCoord.xy / resolution + mapN.xy * 0.05);
-  float depth2 = readDepth(tDepth2, gl_FragCoord.xy / resolution + mapN.xy * 0.05);
-  float waterEdge = (1.0 - smoothstep(0.0, 0.004, abs(depth1 - depth2))) * 0.2;
+  float depth1 = readDepth(tDepth1, gl_FragCoord.xy / resolution + mapN.xy * 0.06);
+  float depth2 = readDepth(tDepth2, gl_FragCoord.xy / resolution + mapN.xy * 0.06);
+  float waterEdge = (1.0 - smoothstep(0.0015, 0.003, abs(depth1 - depth2))) * 0.15;
 
   gl_FragColor = vec4(light, 1.0) + mix(refractColor, reflectColor, reflectance) + waterEdge;
 
