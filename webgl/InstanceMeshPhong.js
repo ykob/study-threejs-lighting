@@ -3,12 +3,12 @@ import * as THREE from 'three'
 import vs from './glsl/InstanceMeshPhong.vs'
 import fs from './glsl/MeshPhong.fs'
 
-const COUNT = 3
+const COUNT = 5
 
 export default class InstanceMeshPhong extends THREE.InstancedMesh {
   constructor() {
     // Define Geometry
-    const geometry = new THREE.IcosahedronGeometry(12, 1)
+    const geometry = new THREE.IcosahedronGeometry(20, 1)
 
     const material = new THREE.RawShaderMaterial({
       uniforms: THREE.UniformsUtils.merge([
@@ -41,7 +41,7 @@ export default class InstanceMeshPhong extends THREE.InstancedMesh {
       const alpha = i / COUNT
       dummy.position.set(
         Math.cos(alpha * ((Math.PI / 180) * 360)) * 60,
-        -20,
+        -35,
         Math.sin(alpha * ((Math.PI / 180) * 360)) * 60
       )
       dummy.updateMatrix()
