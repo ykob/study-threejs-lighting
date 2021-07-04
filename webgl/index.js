@@ -165,13 +165,13 @@ export default class WebGLContent {
     this.renderer.render(this.scene, this.camera)
     this.meshPhong.visible = false
     this.instanceMeshPhong.visible = false
-    this.ground.position.y = -25
+    this.water.visible = true
+    this.water.material.uniforms.tDepth2.value = null
     this.renderer.setRenderTarget(this.target2)
     this.renderer.render(this.scene, this.camera)
     this.meshPhong.visible = true
     this.instanceMeshPhong.visible = true
-    this.water.visible = true
-    this.ground.position.y = -40
+    this.water.material.uniforms.tDepth2.value = this.target2.depthTexture
     this.renderer.setRenderTarget(null)
     this.renderer.render(this.scene, this.camera)
     this.controls.update()
