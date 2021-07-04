@@ -23,6 +23,7 @@ export default class Background extends THREE.Mesh {
     // Create Object3D
     super(geometry, material)
     this.name = 'Background'
+    this.rotation.y = (Math.PI / 180) * -180
   }
 
   start(map) {

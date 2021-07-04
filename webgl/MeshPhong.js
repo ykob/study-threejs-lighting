@@ -33,6 +33,7 @@ export default class MeshPhong extends THREE.Mesh {
     // Create Object3D
     super(geometry, material)
     this.name = 'MeshPhong'
+    this.position.y = 5
   }
 
   start(map, normalMap) {
