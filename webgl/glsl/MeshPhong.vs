@@ -1,7 +1,6 @@
 attribute vec3 position;
 attribute vec3 normal;
 attribute vec2 uv;
-attribute vec4 tangent;
 
 uniform mat4 modelMatrix;
 uniform mat4 viewMatrix;

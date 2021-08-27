@@ -24,9 +24,7 @@ export default class WebGLContent {
       antialias: true,
     })
     this.resolution = new THREE.Vector2()
-    this.clock = new THREE.Clock({
-      autoStart: false,
-    })
+    this.clock = new THREE.Clock(false)
     this.scene = new THREE.Scene()
     this.camera = new Camera()
     this.texLoader = new THREE.TextureLoader()
