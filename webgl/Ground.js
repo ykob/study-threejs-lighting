@@ -7,7 +7,6 @@ export default class Ground extends THREE.Mesh {
   constructor() {
     // Define Geometry
     const geometry = new THREE.PlaneGeometry(1000, 1000)
-    geometry.computeTangents()
 
     // Define Material
     const material = new THREE.RawShaderMaterial({
